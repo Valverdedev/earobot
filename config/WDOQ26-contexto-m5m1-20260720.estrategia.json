@@ -1,0 +1,195 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "WDOQ26ContextoM5M1",
+  "descricao": "Estrategia interpretada para WDOQ26 em demo: venda principal por continuidade/pullback quando M5 e M15 apontam baixa; compra somente se o preco negar a baixa e romper a faixa de abertura com confirmacao.",
+  "geradoEm": "2026-07-20T10:35:00-03:00",
+  "geradoPor": "Codex comite generico B3 WDOQ26",
+  "filtros": [
+    {
+      "tipo": "janelaHorario",
+      "inicio": "09:15",
+      "fim": "13:30"
+    },
+    {
+      "tipo": "spreadMaximo",
+      "valorPreco": 1.0
+    },
+    {
+      "tipo": "atrMinimo",
+      "periodo": 14,
+      "valorPreco": 1.0
+    },
+    {
+      "tipo": "atrMaximo",
+      "periodo": 14,
+      "valorPreco": 5.5
+    },
+    {
+      "tipo": "candleMaxAtrMultiplo",
+      "periodo": 14,
+      "multiplo": 2.4
+    },
+    {
+      "tipo": "semClimax",
+      "janelaCandles": 4,
+      "multiploRange": 2.8,
+      "lookbackMedioRange": 20
+    }
+  ],
+  "compra": {
+    "setup": {
+      "todas": [
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "maximaJanela(\"09:00\",\"09:30\")"
+        },
+        {
+          "op": ">",
+          "a": "ema(9, \"M5\")[0]",
+          "b": "ema(21, \"M5\")[0]"
+        },
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "vwap[0]"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 52,
+          "max": 74
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "candle[1].maximo"
+        },
+        {
+          "qualquer": [
+            {
+              "padrao": "trendBarAlta",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.5
+            },
+            {
+              "padrao": "rejeicaoCompradora",
+              "candle": 0,
+              "multiploPavio": 1.6
+            }
+          ]
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "minimaJanela(\"09:00\",\"09:30\")",
+      "bufferPreco": 1.0
+    }
+  },
+  "venda": {
+    "setup": {
+      "todas": [
+        {
+          "op": "<",
+          "a": "ema(9, \"M5\")[0]",
+          "b": "ema(21, \"M5\")[0]"
+        },
+        {
+          "op": "<",
+          "a": "ema(21, \"M5\")[0]",
+          "b": "ema(50, \"M5\")[0]"
+        },
+        {
+          "op": "<",
+          "a": "candle(\"M15\")[0].fechamento",
+          "b": "ema(21, \"M15\")[0]"
+        },
+        {
+          "op": "<=",
+          "a": "candle[0].fechamento",
+          "b": "vwap[0] + 1.5"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 26,
+          "max": 58
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "candle[1].minimo"
+        },
+        {
+          "qualquer": [
+            {
+              "padrao": "trendBarBaixa",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.5
+            },
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.6
+            }
+          ]
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "extremoCandle",
+      "candle": 0,
+      "lado": "maximo",
+      "bufferPreco": 1.0
+    }
+  },
+  "saida": {
+    "compra": {
+      "qualquer": [
+        {
+          "op": "cruzouAbaixo",
+          "a": "ema(9)",
+          "b": "ema(21)"
+        },
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "maximaJanela(\"09:00\",\"09:30\")"
+        },
+        {
+          "padrao": "rejeicaoVendedora",
+          "candle": 0,
+          "multiploPavio": 1.8
+        }
+      ]
+    },
+    "venda": {
+      "qualquer": [
+        {
+          "op": "cruzouAcima",
+          "a": "ema(9)",
+          "b": "ema(21)"
+        },
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "vwap[0] + 2.0"
+        },
+        {
+          "padrao": "rejeicaoCompradora",
+          "candle": 0,
+          "multiploPavio": 1.8
+        }
+      ]
+    }
+  }
+}

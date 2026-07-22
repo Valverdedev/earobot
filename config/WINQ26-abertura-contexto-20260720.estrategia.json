@@ -1,0 +1,149 @@
+﻿{
+    "compra":  {
+                   "gatilho":  {
+                                   "todas":  [
+                                                 {
+                                                     "op":  "\u003e",
+                                                     "b":  "maximaJanela(09:00,09:30)",
+                                                     "a":  "tick.ask"
+                                                 },
+                                                 {
+                                                     "op":  "\u003e",
+                                                     "b":  "candle[1].maximo",
+                                                     "a":  "candle[0].fechamento"
+                                                 },
+                                                 {
+                                                     "qualquer":  [
+                                                                      {
+                                                                          "candle":  0,
+                                                                          "corpoMinimoFracaoRange":  0.5,
+                                                                          "padrao":  "trendBarAlta"
+                                                                      },
+                                                                      {
+                                                                          "candle":  0,
+                                                                          "lado":  "alta",
+                                                                          "padrao":  "fechamentoDirecional"
+                                                                      },
+                                                                      {
+                                                                          "candle":  0,
+                                                                          "multiploPavio":  1.35,
+                                                                          "padrao":  "rejeicaoCompradora"
+                                                                      }
+                                                                  ]
+                                                 }
+                                             ]
+                               },
+                   "stop":  {
+                                "a":  "minimaJanela(09:00,09:30)",
+                                "tipo":  "valorOperando",
+                                "bufferPreco":  40
+                            },
+                   "setup":  {
+                                 "todas":  [
+                                               {
+                                                   "op":  "\u003e",
+                                                   "b":  "ema(21)[0]",
+                                                   "a":  "ema(9)[0]"
+                                               },
+                                               {
+                                                   "op":  "\u003e",
+                                                   "b":  "ema(50)[0]",
+                                                   "a":  "ema(21)[0]"
+                                               },
+                                               {
+                                                   "op":  "\u003e",
+                                                   "b":  "ema(21,M5)[0]",
+                                                   "a":  "ema(9,M5)[0]"
+                                               },
+                                               {
+                                                   "op":  "\u003e",
+                                                   "b":  "ema(50,M5)[0]",
+                                                   "a":  "ema(21,M5)[0]"
+                                               },
+                                               {
+                                                   "op":  "\u003e",
+                                                   "b":  "vwap(14)[0] - 40",
+                                                   "a":  "candle[0].fechamento"
+                                               },
+                                               {
+                                                   "op":  "entre",
+                                                   "min":  45,
+                                                   "a":  "rsi(14)[0]",
+                                                   "max":  78
+                                               },
+                                               {
+                                                   "op":  "\u003e",
+                                                   "b":  "maximaJanela(09:00,09:30) - 60",
+                                                   "a":  "candle[0].fechamento"
+                                               }
+                                           ]
+                             }
+               },
+    "$schemaVersion":  "1.0",
+    "geradoPor":  "Codex comite WINQ abertura 2026-07-20",
+    "filtros":  [
+                    {
+                        "inicio":  "09:30",
+                        "fim":  "10:30",
+                        "tipo":  "janelaHorario"
+                    },
+                    {
+                        "tipo":  "spreadMaximo",
+                        "valorPreco":  10
+                    },
+                    {
+                        "periodo":  14,
+                        "tipo":  "atrMinimo",
+                        "valorPreco":  70
+                    },
+                    {
+                        "periodo":  14,
+                        "tipo":  "atrMaximo",
+                        "valorPreco":  450
+                    },
+                    {
+                        "periodo":  14,
+                        "tipo":  "candleMaxAtrMultiplo",
+                        "multiplo":  2.4
+                    },
+                    {
+                        "janelaCandles":  4,
+                        "lookbackMedioRange":  20,
+                        "tipo":  "semClimax",
+                        "multiploRange":  2.6
+                    }
+                ],
+    "descricao":  "EstrategiaInterpretada para WINQ26 em demo. Compra somente rompimento contextual da maxima da abertura 09:00-09:30, com WDO fraco como contexto externo observado no comite, M1/M5 alinhados e bloqueios por horario/spread/ATR. Venda desligada.",
+    "saida":  {
+                  "compra":  {
+                                 "qualquer":  [
+                                                  {
+                                                      "op":  "cruzouAbaixo",
+                                                      "b":  "ema(21)",
+                                                      "a":  "ema(9)"
+                                                  },
+                                                  {
+                                                      "op":  "\u003c",
+                                                      "b":  "maximaJanela(09:00,09:30) - 80",
+                                                      "a":  "candle[0].fechamento"
+                                                  },
+                                                  {
+                                                      "todas":  [
+                                                                    {
+                                                                        "op":  "\u003e=",
+                                                                        "b":  0.6,
+                                                                        "a":  "posicao.lucroBruto"
+                                                                    },
+                                                                    {
+                                                                        "candle":  0,
+                                                                        "multiploPavio":  1.5,
+                                                                        "padrao":  "rejeicaoVendedora"
+                                                                    }
+                                                                ]
+                                                  }
+                                              ]
+                             }
+              },
+    "nome":  "WINQ26AberturaContextoCompradora",
+    "geradoEm":  "2026-07-20T10:05:00-03:00"
+}

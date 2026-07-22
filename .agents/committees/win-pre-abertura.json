@@ -1,0 +1,77 @@
+{
+  "name": "win-pre-abertura",
+  "title": "Comite Pre-Abertura WIN",
+  "symbol": "WINQ26",
+  "description": "Prepara o plano do dia antes da abertura do Mini Indice.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    {
+      "id": "macro_analyst",
+      "role": "Analista Macro",
+      "skills": [ "mini-indice-contexto-macro" ]
+    },
+    {
+      "id": "price_action_analyst",
+      "role": "Analista Price Action",
+      "skills": [ "mini-indice-price-action" ]
+    },
+    {
+      "id": "flow_analyst",
+      "role": "Analista de Fluxo e Correlatos",
+      "skills": [ "mini-indice-fluxo-e-correlatos" ]
+    },
+    {
+      "id": "regime_strategist",
+      "role": "Estrategista de Regime e Estrategia",
+      "skills": [ "mini-indice-regime-do-dia", "mini-indice-selecao-estrategia" ]
+    },
+    {
+      "id": "risk_officer",
+      "role": "Gestor de Risco",
+      "skills": [ "mini-indice-risco-operacional" ]
+    },
+    {
+      "id": "chair",
+      "role": "Presidente do Comite",
+      "skills": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "macro",
+      "agentId": "macro_analyst",
+      "dependsOn": [],
+      "prompt": "Analise o contexto macro e comportamental para o WINQ26 antes da abertura. Produza vies macro, fatores dominantes, contradicoes, eventos criticos, janelas de risco e fontes."
+    },
+    {
+      "id": "price_action",
+      "agentId": "price_action_analyst",
+      "dependsOn": [],
+      "prompt": "Analise a estrutura de Price Action do WINQ26 antes da abertura usando dados disponiveis do extrator, relatorios e configs. Produza regime tecnico, niveis, confirmacoes, contradicoes e bloqueios."
+    },
+    {
+      "id": "fluxo",
+      "agentId": "flow_analyst",
+      "dependsOn": [],
+      "prompt": "Analise fluxo e correlatos do WINQ26: dolar, juros, Ibovespa, acoes pesadas, exterior, commodities e sinais de confirmacao ou divergencia."
+    },
+    {
+      "id": "regime_estrategia",
+      "agentId": "regime_strategist",
+      "dependsOn": [ "macro", "price_action", "fluxo" ],
+      "prompt": "Com base nas analises anteriores, classifique o regime do dia e selecione uma estrategia registrada ou nenhuma. Explique rejeicoes e bloqueios."
+    },
+    {
+      "id": "risco",
+      "agentId": "risk_officer",
+      "dependsOn": [ "regime_estrategia" ],
+      "prompt": "Valide risco operacional para o plano pre-abertura: permissao, limite de perda restante, maximo de trades, cooldown, horarios, spread, eventos e bloqueios."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "macro", "price_action", "fluxo", "regime_estrategia", "risco" ],
+      "prompt": "Consolide o plano pre-abertura em final.md e final.json. A decisao deve ser operar, operar_reduzido ou nao_operar, com vies, estrategia, risco, validade, gatilhos de revisao e bloqueios."
+    }
+  ]
+}

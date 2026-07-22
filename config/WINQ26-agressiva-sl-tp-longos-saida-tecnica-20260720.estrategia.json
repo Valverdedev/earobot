@@ -1,0 +1,214 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "WINQ26AgressivaSlTpLongosSaidaTecnica",
+  "descricao": "EstrategiaInterpretada agressiva para WINQ26 em demo. Diferente da validacao EA, exige direcao minima por EMA/VWAP/candle, usa stop estrutural mais folgado, TP longo e saidas tecnicas menos sensiveis para permitir desenvolvimento do trade.",
+  "geradoPor": "Codex comite WINQ pos-validacao EA",
+  "geradoEm": "2026-07-20T13:55:00-03:00",
+  "filtros": [
+    {
+      "tipo": "spreadMaximo",
+      "valorPreco": 30
+    },
+    {
+      "tipo": "atrMinimo",
+      "periodo": 14,
+      "valorPreco": 45
+    },
+    {
+      "tipo": "atrMaximo",
+      "periodo": 14,
+      "valorPreco": 900
+    },
+    {
+      "tipo": "candleMaxAtrMultiplo",
+      "periodo": 14,
+      "multiplo": 4.0
+    }
+  ],
+  "compra": {
+    "setup": {
+      "todas": [
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "ema(21)[0]"
+        },
+        {
+          "op": ">",
+          "a": "ema(9)[0]",
+          "b": "ema(21)[0]"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 42,
+          "max": 78
+        }
+      ]
+    },
+    "gatilho": {
+      "qualquer": [
+        {
+          "op": ">",
+          "a": "tick.ask",
+          "b": "candle[1].maximo"
+        },
+        {
+          "padrao": "trendBarAlta",
+          "candle": 0,
+          "corpoMinimoFracaoRange": 0.48
+        },
+        {
+          "padrao": "rejeicaoCompradora",
+          "candle": 0,
+          "multiploPavio": 1.25
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "minima(0, 15)",
+      "bufferPreco": 150
+    }
+  },
+  "venda": {
+    "setup": {
+      "todas": [
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "ema(21)[0]"
+        },
+        {
+          "op": "<",
+          "a": "ema(9)[0]",
+          "b": "ema(21)[0]"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 22,
+          "max": 58
+        }
+      ]
+    },
+    "gatilho": {
+      "qualquer": [
+        {
+          "op": "<",
+          "a": "tick.bid",
+          "b": "candle[1].minimo"
+        },
+        {
+          "padrao": "trendBarBaixa",
+          "candle": 0,
+          "corpoMinimoFracaoRange": 0.48
+        },
+        {
+          "padrao": "rejeicaoVendedora",
+          "candle": 0,
+          "multiploPavio": 1.25
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "maxima(0, 15)",
+      "bufferPreco": 150
+    }
+  },
+  "saida": {
+    "compra": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "op": "cruzouAbaixo",
+              "a": "ema(9)",
+              "b": "ema(21)"
+            },
+            {
+              "op": "<",
+              "a": "candle[0].fechamento",
+              "b": "vwap(14)[0] - 40"
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 2.0
+            },
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.7
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": "<=",
+              "a": "posicao.lucroBruto",
+              "b": -8.0
+            },
+            {
+              "padrao": "trendBarBaixa",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.62
+            }
+          ]
+        }
+      ]
+    },
+    "venda": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "op": "cruzouAcima",
+              "a": "ema(9)",
+              "b": "ema(21)"
+            },
+            {
+              "op": ">",
+              "a": "candle[0].fechamento",
+              "b": "vwap(14)[0] + 40"
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 2.0
+            },
+            {
+              "padrao": "rejeicaoCompradora",
+              "candle": 0,
+              "multiploPavio": 1.7
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": "<=",
+              "a": "posicao.lucroBruto",
+              "b": -8.0
+            },
+            {
+              "padrao": "trendBarAlta",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.62
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

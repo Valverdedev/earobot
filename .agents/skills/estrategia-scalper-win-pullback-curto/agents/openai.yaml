@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Scalper WIN"
+  short_description: "Analisa pullbacks curtos alinhados no WIN"
+  default_prompt: "Use $estrategia-scalper-win-pullback-curto para avaliar pullbacks e preparar uma configuracao candidata."

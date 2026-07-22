@@ -1,0 +1,77 @@
+{
+  "name": "generic-b3-config",
+  "title": "Comite Generico B3",
+  "assetClass": "B3",
+  "description": "Analisa e prepara configuracao candidata para ativos B3, incluindo indice futuro, acoes e outros simbolos negociados via terminal local.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    {
+      "id": "market_reader",
+      "role": "Leitor de Mercado e Contexto",
+      "skills": []
+    },
+    {
+      "id": "price_action",
+      "role": "Leitor de Price Action",
+      "skills": []
+    },
+    {
+      "id": "strategy_selector",
+      "role": "Selecionador de Estrategia",
+      "skills": []
+    },
+    {
+      "id": "risk_officer",
+      "role": "Gestor de Risco Operacional",
+      "skills": []
+    },
+    {
+      "id": "config_builder",
+      "role": "Preparador de Config Candidato",
+      "skills": []
+    },
+    {
+      "id": "chair",
+      "role": "Presidente do Comite",
+      "skills": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "contexto_mercado",
+      "agentId": "market_reader",
+      "dependsOn": [],
+      "prompt": "Analise o contexto do ativo B3 informado. Considere indice local, dolar/juros, commodities, exterior, noticias materiais, agenda, liquidez, sessao, vencimento/rollover quando aplicavel e componentes/correlatos relevantes. Separe fatos, inferencias e bloqueios."
+    },
+    {
+      "id": "price_action",
+      "agentId": "price_action",
+      "dependsOn": [],
+      "prompt": "Leia o Price Action do ativo em multiplos timeframes. Identifique regime, tendencia/range, suportes, resistencias, VWAP quando disponivel, volatilidade, pullbacks, rompimentos, falsas rupturas e niveis de invalidacao."
+    },
+    {
+      "id": "selecao_estrategia",
+      "agentId": "strategy_selector",
+      "dependsOn": [ "contexto_mercado", "price_action" ],
+      "prompt": "Releia o catalogo de estrategias e selecione a melhor estrategia registrada para o ativo e regime atual. Inclua tambem a opcao de nao operar. Justifique direcao, magic number sugerido, parametros e sinais de invalidacao."
+    },
+    {
+      "id": "risco_operacional",
+      "agentId": "risk_officer",
+      "dependsOn": [ "contexto_mercado", "price_action", "selecao_estrategia" ],
+      "prompt": "Defina risco operacional para validacao: lote, maximo de posicoes, maximo de trades, cooldown, drawdown, SL/TP, parciais, breakeven, trailing, horario e bloqueios. Nao aumente risco sem registrar que e ambiente demo/teste ou sem autorizacao explicita."
+    },
+    {
+      "id": "config_candidato",
+      "agentId": "config_builder",
+      "dependsOn": [ "selecao_estrategia", "risco_operacional" ],
+      "prompt": "Prepare uma especificacao de config candidato, preservando campos desconhecidos do config ativo. Por padrao, candidato deve ficar operar=false, salvo autorizacao explicita no contexto. Nao edite config ativo nesta task."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "contexto_mercado", "price_action", "selecao_estrategia", "risco_operacional", "config_candidato" ],
+      "prompt": "Consolide a decisao final em Markdown e JSON. Informe se deve configurar, pausar, manter, ligar em demo, ou bloquear. Liste gates para promocao segura, arquivos usados e proxima revisao obrigatoria."
+    }
+  ]
+}

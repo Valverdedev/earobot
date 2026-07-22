@@ -1,0 +1,4 @@
+interface:
+  display_name: "Análise Profissional do GOLD"
+  short_description: "Analisa GOLD e propõe config seguro do robô"
+  default_prompt: "Use $analisar-gold para produzir a análise completa do GOLD e preparar um config candidato seguro."

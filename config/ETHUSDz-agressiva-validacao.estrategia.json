@@ -1,0 +1,105 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "ETHUSDzDisparoForcadoSaidaTecnicaValidacao",
+  "descricao": "EstrategiaInterpretada de disparo forcado para validar abertura de ordem, SL/TP longo e saida tecnica no ETHUSDz. Nao e tese operacional.",
+  "geradoEm": "2026-07-18T17:55:00Z",
+  "geradoPor": "Codex apos validar o mesmo fluxo no BTCUSDz.",
+  "compra": {
+    "gatilho": {
+      "todas": [
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": 1
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "minima(0, 5)",
+      "bufferPreco": 2.5
+    }
+  },
+  "venda": {
+    "gatilho": {
+      "todas": [
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": 1
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "maxima(0, 5)",
+      "bufferPreco": 2.5
+    }
+  },
+  "saida": {
+    "compra": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 0.08
+            },
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.15
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": "<=",
+              "a": "posicao.lucroBruto",
+              "b": -0.30
+            },
+            {
+              "padrao": "trendBarBaixa",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    "venda": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 0.08
+            },
+            {
+              "padrao": "rejeicaoCompradora",
+              "candle": 0,
+              "multiploPavio": 1.15
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": "<=",
+              "a": "posicao.lucroBruto",
+              "b": -0.30
+            },
+            {
+              "padrao": "trendBarAlta",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.4
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

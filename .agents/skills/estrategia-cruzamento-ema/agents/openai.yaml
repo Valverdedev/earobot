@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Cruzamento EMA"
+  short_description: "Analisa CruzamentoEma e gera config candidata"
+  default_prompt: "Use $estrategia-cruzamento-ema para avaliar o mercado e preparar uma configuracao candidata."

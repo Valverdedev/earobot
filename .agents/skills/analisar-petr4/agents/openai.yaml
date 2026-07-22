@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analisar PETR4"
+  short_description: "Analise PETR4 para operar na Genial"
+  default_prompt: "Analise PETR4 para o robo, gere relatorio auditavel, prepare config candidato e promova quando autorizado."

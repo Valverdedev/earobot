@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analisar WINQ"
+  short_description: "Analise auditavel de WINQ e Bra50"
+  default_prompt: "Use $analisar-winq para analisar WINQ/Bra50 com contexto macro, eleitoral e intermercado."

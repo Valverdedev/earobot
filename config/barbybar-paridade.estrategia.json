@@ -1,0 +1,64 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "PriceActionBarByBarParidade",
+  "compra": {
+    "setup": {
+      "todas": [
+        {
+          "padrao": "impulsoPullback",
+          "idRef": "barraSinal",
+          "lado": "alta",
+          "corpoMinimoFracaoRange": 0.55,
+          "minCandlesImpulso": 2,
+          "maxCandlesImpulso": 6,
+          "minCandlesPullback": 1,
+          "maxCandlesPullback": 5,
+          "maxPullbackPercentual": 0.7,
+          "lookbackMedioRange": 20,
+          "climaxMultiploRange": 2.5
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        { "op": ">", "a": "candle[0].fechamento", "b": "ref.barraSinal.maximo" }
+      ]
+    },
+    "stop": {
+      "tipo": "extremoRef",
+      "ref": "barraSinal",
+      "lado": "minimo",
+      "bufferPreco": 5.0
+    }
+  },
+  "venda": {
+    "setup": {
+      "todas": [
+        {
+          "padrao": "impulsoPullback",
+          "idRef": "barraSinal",
+          "lado": "baixa",
+          "corpoMinimoFracaoRange": 0.55,
+          "minCandlesImpulso": 2,
+          "maxCandlesImpulso": 6,
+          "minCandlesPullback": 1,
+          "maxCandlesPullback": 5,
+          "maxPullbackPercentual": 0.7,
+          "lookbackMedioRange": 20,
+          "climaxMultiploRange": 2.5
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        { "op": "<", "a": "candle[0].fechamento", "b": "ref.barraSinal.minimo" }
+      ]
+    },
+    "stop": {
+      "tipo": "extremoRef",
+      "ref": "barraSinal",
+      "lado": "maximo",
+      "bufferPreco": 5.0
+    }
+  }
+}

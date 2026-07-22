@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analisar Usa500"
+  short_description: "Analise profissional de Usa500/S&P 500 para o robo."
+  default_prompt: "Analise Usa500 seguindo o fluxo auditavel da skill."

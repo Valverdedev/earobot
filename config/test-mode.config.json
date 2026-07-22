@@ -1,0 +1,28 @@
+{
+  "testMode": true,
+  "mtApi": {
+    "host": "localhost",
+    "port": 8228,
+    "connectTimeoutSeconds": 15
+  },
+  "testSequence": {
+    "symbol": "EURUSD",
+    "volume": 0.01,
+    "orderType": "BUY",
+    "stopLossPips": 20,
+    "takeProfitPips": 20,
+    "modifiedStopLossPips": 30,
+    "modifiedTakeProfitPips": 30,
+    "pendingOrder": {
+      "type": "BUY_LIMIT",
+      "distancePips": 50,
+      "stopLossPips": 20,
+      "takeProfitPips": 20
+    },
+    "delayBetweenActionsSeconds": 5
+  },
+  "logging": {
+    "filePath": "logs/test-mode-.log",
+    "minimumLevel": "Information"
+  }
+}

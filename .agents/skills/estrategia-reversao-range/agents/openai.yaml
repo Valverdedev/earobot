@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Reversao de Range"
+  short_description: "Analisa reversao a media em faixas laterais"
+  default_prompt: "Use $estrategia-reversao-range para avaliar um range e preparar uma configuracao candidata."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analisar HKInd"
+  short_description: "Analise profissional de HKInd/Hang Seng para o robo."
+  default_prompt: "Analise HKInd seguindo o fluxo auditavel da skill."

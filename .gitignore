@@ -1,0 +1,37 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+
+## Logs
+logs/
+*.log
+.agents/runs/
+
+## Local libraries
+libs/*
+!libs/*.dll
+
+## User configuration and secrets
+**/appsettings.*.json
+!**/appsettings.json
+
+## Dotnet CLI
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Build and packages
+[Pp]ublish/
+[Pp]ackages/
+publish-*/
+*.nupkg
+*.zip
+
+## Generated operational data
+data/
+**/data/mt5/
+**/data/mtapi-tests/

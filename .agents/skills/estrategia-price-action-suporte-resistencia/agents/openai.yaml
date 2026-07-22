@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Price Action S/R"
+  short_description: "Analisa retestes e rejeicoes em niveis"
+  default_prompt: "Use $estrategia-price-action-suporte-resistencia para avaliar niveis e preparar uma configuracao candidata."

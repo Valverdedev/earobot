@@ -1,0 +1,66 @@
+{
+  "name": "gold-pos-pregao",
+  "title": "Comite Pos-Pregao GOLD",
+  "symbol": "GOLD",
+  "description": "Audita execucao, tese e ajustes candidatos do ouro apos o ciclo operacional.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    {
+      "id": "execution_auditor",
+      "role": "Auditor de Execucao GOLD",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "macro_postmortem",
+      "role": "Auditor Macro Pos-Evento",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "strategy_reviewer",
+      "role": "Revisor de Estrategia GOLD",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "config_drafter",
+      "role": "Preparador de Config Candidato GOLD",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "chair",
+      "role": "Presidente do Comite GOLD",
+      "skills": [ "analisar-gold" ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "auditoria_execucao",
+      "agentId": "execution_auditor",
+      "dependsOn": [],
+      "prompt": "Audite trades e logs do GOLD: aderencia a tese, entradas fora da regra, saidas cedo/tarde, spread, slippage, overtrading e qualidade operacional."
+    },
+    {
+      "id": "macro_postmortem",
+      "agentId": "macro_postmortem",
+      "dependsOn": [],
+      "prompt": "Audite se dolar, yields, Fed, dados macro e geopolitica explicaram ou contradisseram o comportamento do GOLD no periodo."
+    },
+    {
+      "id": "revisao_estrategia",
+      "agentId": "strategy_reviewer",
+      "dependsOn": [ "auditoria_execucao", "macro_postmortem" ],
+      "prompt": "Revise se a estrategia usada continua adequada ao regime observado e ao catalogo. Recomende manter, bloquear ou trocar estrategia."
+    },
+    {
+      "id": "config_candidato",
+      "agentId": "config_drafter",
+      "dependsOn": [ "revisao_estrategia" ],
+      "prompt": "Prepare proposta de config candidato para GOLD somente se houver justificativa. Nao promova config ativo. Manter operar=false por padrao."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "auditoria_execucao", "macro_postmortem", "revisao_estrategia", "config_candidato" ],
+      "prompt": "Consolide auditoria pos-pregao do GOLD em final.md e final.json. Informe aprendizado, qualidade de execucao, manter_config_atual, ajustes candidatos e proxima revisao."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "name": "win-meio-dia",
+  "title": "Comite Meio-Dia WIN",
+  "symbol": "WINQ26",
+  "description": "Revalida a tese do Mini Indice no meio do pregao.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    {
+      "id": "thesis_validator",
+      "role": "Validador de Tese",
+      "skills": [ "mini-indice-validacao-tese" ]
+    },
+    {
+      "id": "price_action_update",
+      "role": "Atualizador de Price Action",
+      "skills": [ "mini-indice-price-action" ]
+    },
+    {
+      "id": "flow_update",
+      "role": "Atualizador de Fluxo e Correlatos",
+      "skills": [ "mini-indice-fluxo-e-correlatos" ]
+    },
+    {
+      "id": "risk_officer",
+      "role": "Gestor de Risco",
+      "skills": [ "mini-indice-risco-operacional" ]
+    },
+    {
+      "id": "chair",
+      "role": "Presidente do Comite",
+      "skills": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "validacao_tese",
+      "agentId": "thesis_validator",
+      "dependsOn": [],
+      "prompt": "Compare o plano pre-abertura com o mercado realizado, trades, PnL, risco e eventos. Classifique a tese como confirmada, parcial, invalidada ou inconclusiva."
+    },
+    {
+      "id": "price_action_update",
+      "agentId": "price_action_update",
+      "dependsOn": [],
+      "prompt": "Atualize a leitura de Price Action do WINQ26 ate o meio-dia. Destaque mudancas de regime, rompimentos, falhas, niveis e bloqueios."
+    },
+    {
+      "id": "fluxo_update",
+      "agentId": "flow_update",
+      "dependsOn": [],
+      "prompt": "Atualize fluxo e correlatos ate o meio-dia. Indique se confirmam, enfraquecem ou invalidam a tese do dia."
+    },
+    {
+      "id": "risco",
+      "agentId": "risk_officer",
+      "dependsOn": [ "validacao_tese", "price_action_update", "fluxo_update" ],
+      "prompt": "Valide risco restante e proponha acao operacional: manter, reduzir risco, trocar estrategia, pausar ou virar vies."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "validacao_tese", "price_action_update", "fluxo_update", "risco" ],
+      "prompt": "Consolide a decisao do meio-dia em final.md e final.json. A acao deve ser manter, reduzir_risco, trocar_estrategia, pausar ou virar_vies."
+    }
+  ]
+}

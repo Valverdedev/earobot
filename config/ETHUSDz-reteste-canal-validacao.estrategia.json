@@ -1,0 +1,183 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "ETHUSDzRetesteCanalValidacao",
+  "descricao": "EstrategiaInterpretada de validacao para ETHUSDz usando reteste/rompimento de niveis, alinhamento de medias e inclinacao. Diferente da BTC agressiva: prioriza estrutura de canal curto.",
+  "geradoEm": "2026-07-18T00:54:59Z",
+  "geradoPor": "Codex com extracao MT5 ETHUSDz em data/mt5/ETHUSDz_analysis_8228.json",
+  "filtros": [
+    {
+      "tipo": "spreadMaximo",
+      "valorPreco": 5.0
+    },
+    {
+      "tipo": "atrMinimo",
+      "periodo": 14,
+      "valorPreco": 0.15
+    },
+    {
+      "tipo": "candleMaxAtrMultiplo",
+      "periodo": 14,
+      "multiplo": 3.0
+    }
+  ],
+  "compra": {
+    "setup": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "padrao": "rompimentoReteste",
+              "idRef": "rompimento",
+              "lado": "alta",
+              "tipoNivel": "resistencia",
+              "toleranciaPreco": 0.15,
+              "fimCandleSinal": 8
+            },
+            {
+              "op": "inclinacao",
+              "a": "ema(9)",
+              "candles": 2,
+              "direcao": "alta"
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "padrao": "tocouNivel",
+              "idRef": "toque",
+              "tipoNivel": "suporte",
+              "lado": "minimo",
+              "toleranciaPreco": 0.65,
+              "fimCandleSinal": 5
+            },
+            {
+              "op": "entre",
+              "a": "rsi(14)[0]",
+              "min": 35,
+              "max": 55
+            },
+            {
+              "op": "distanciaMaxima",
+              "a": "candle[0].fechamento",
+              "b": "vwap[0]",
+              "valorPreco": 3.0
+            }
+          ]
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        {
+          "padrao": "fechamentoDirecional",
+          "candle": 0,
+          "lado": "alta"
+        },
+        {
+          "qualquer": [
+            {
+              "op": ">",
+              "a": "candle[0].fechamento",
+              "b": "candle[1].maximo"
+            },
+            {
+              "op": "alinhados",
+              "serie": [
+                "ema(9)[0]",
+                "ema(21)[0]",
+                "ema(50)[0]"
+              ],
+              "ordem": "decrescente"
+            }
+          ]
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "minima(0, 5)",
+      "bufferPreco": 0.45
+    }
+  },
+  "venda": {
+    "setup": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "padrao": "rompimentoReteste",
+              "idRef": "rompimento",
+              "lado": "baixa",
+              "tipoNivel": "suporte",
+              "toleranciaPreco": 0.15,
+              "fimCandleSinal": 8
+            },
+            {
+              "op": "inclinacao",
+              "a": "ema(9)",
+              "candles": 2,
+              "direcao": "baixa"
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "padrao": "tocouNivel",
+              "idRef": "toque",
+              "tipoNivel": "resistencia",
+              "lado": "maximo",
+              "toleranciaPreco": 0.65,
+              "fimCandleSinal": 5
+            },
+            {
+              "op": "entre",
+              "a": "rsi(14)[0]",
+              "min": 45,
+              "max": 65
+            },
+            {
+              "op": "distanciaMaxima",
+              "a": "candle[0].fechamento",
+              "b": "vwap[0]",
+              "valorPreco": 3.0
+            }
+          ]
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        {
+          "padrao": "fechamentoDirecional",
+          "candle": 0,
+          "lado": "baixa"
+        },
+        {
+          "qualquer": [
+            {
+              "op": "<",
+              "a": "candle[0].fechamento",
+              "b": "candle[1].minimo"
+            },
+            {
+              "op": "alinhados",
+              "serie": [
+                "ema(9)[0]",
+                "ema(21)[0]",
+                "ema(50)[0]"
+              ],
+              "ordem": "crescente"
+            }
+          ]
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "maxima(0, 5)",
+      "bufferPreco": 0.45
+    }
+  }
+}

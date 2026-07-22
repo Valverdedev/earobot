@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Price Action BarByBar"
+  short_description: "Analisa impulso, pullback e confirmacao bar a bar"
+  default_prompt: "Use $estrategia-price-action-bar-by-bar para avaliar o padrao e preparar uma configuracao candidata."

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "1.0",
+  "symbol": "WDOQ26",
+  "brokerSymbol": "WDOQ26",
+  "terminalId": "genial",
+  "geradoEm": "2026-07-20T10:35:00-03:00",
+  "origemRelatorio": "Comite generico B3 WDOQ26 em 2026-07-20 com extracao MT5 real em data/mt5/WDOQ26_analysis_20260720.json e contexto externo USD/BRL, DXY, juros globais e Ibovespa. Melhor time: M5 para regime, M1 para gatilho.",
+  "operar": true,
+  "comprar": true,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null,
+    "observacao": "Entrada decidida pela EstrategiaInterpretada em config/WDOQ26-contexto-m5m1-20260720.estrategia.json."
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "encerrarAtivaAcimaDe": null,
+    "encerrarAtivaAbaixoDe": null,
+    "stopLossPips": 5.0,
+    "takeProfitPips": 8.0,
+    "stopLossAtrMultiplo": null,
+    "takeProfitAtrMultiplo": null,
+    "trailingStopPips": 3.5,
+    "trailingStopAtrMultiplo": null,
+    "breakevenGatilhoAtrMultiplo": 0.65,
+    "breakevenBufferPips": 0.5,
+    "cooldownAposFechamentoSegundos": 900,
+    "slMinimoSobreSpread": 4.0,
+    "applyToOpenPositions": false,
+    "saidasParciais": null,
+    "breakEvenAposParcial": false
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 1.0,
+    "percentualConta": null,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 0.12,
+    "janelaHorarioPermitido": null
+  },
+  "indicadores": [],
+  "indicadoresMultiFonte": null,
+  "estrategias": [
+    {
+      "id": "wdoq26-contexto-m5m1-20260720",
+      "nome": "EstrategiaInterpretada",
+      "magicNumber": 826,
+      "ativa": true,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": 5.0,
+        "takeProfitPips": 8.0,
+        "stopLossAtrMultiplo": null,
+        "takeProfitAtrMultiplo": null,
+        "trailingStopPips": 3.5,
+        "trailingStopAtrMultiplo": null,
+        "breakevenGatilhoAtrMultiplo": 0.65,
+        "breakevenBufferPips": 0.5,
+        "cooldownAposFechamentoSegundos": 900,
+        "slMinimoSobreSpread": 4.0,
+        "applyToOpenPositions": false,
+        "saidasParciais": null,
+        "breakEvenAposParcial": false
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 1.0,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 0.12,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": {
+        "inicioUtc": "12:15",
+        "fimUtc": "16:30"
+      },
+      "indicadores": [],
+      "parametros": {
+        "arquivoDefinicao": "WDOQ26-contexto-m5m1-20260720.estrategia.json",
+        "timeframeRegime": "M5",
+        "timeframeGatilho": "M1",
+        "maxStopsConsecutivos": 1
+      }
+    }
+  ],
+  "observacoes": [
+    "Extracao MT5 2026-07-20T13:19:45Z: WDOQ26 bid 5107.0, ask 5107.5, spread 0.5, pointSize 0.5, stopsLevel 0, conta XPMT5-DEMO.",
+    "M1: 300 candles de 2026-07-17 14:51 a 2026-07-20 10:20, queda liquida de 17.0 pontos, maxima 5132.5, minima 5105.0, range medio 1.53 ponto.",
+    "M5: 300 candles de 2026-07-15 13:55 a 2026-07-20 10:20, range 5093.0-5151.0, range medio 3.35 pontos; melhor time escolhido para regime por filtrar ruido do M1 sem atrasar demais a execucao.",
+    "M15/H1 seguem contexto mais amplo vendedor: M15 -75.5 pontos desde 2026-07-08 11:30; H1 -138.0 pontos desde 2026-06-08 11:00.",
+    "Contexto externo em 2026-07-20: USD/BRL perto de 5.09-5.11 com real ainda forte no mes, DXY perto de 100.8 e juros/geopolitica sustentando risco de repique do dolar. Tese: venda principal em pullback/continuidade; compra apenas em negacao acima da faixa inicial.",
+    "Operar autorizado na conversa atual; manter lote minimo, uma posicao simultanea, maxStopsConsecutivos=1 e cooldown de 900s."
+  ]
+}

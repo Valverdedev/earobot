@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Hydrus"
+  short_description: "Analisa rompimentos do canal EMA Hydrus"
+  default_prompt: "Use $estrategia-hydrus-ema-channel-breakout para avaliar o canal e preparar uma configuracao candidata."

@@ -1,0 +1,132 @@
+{
+  "$schemaVersion": "1.0",
+  "symbol": "BTCUSDz",
+  "brokerSymbol": "BTCUSDz",
+  "terminalId": "activtraders",
+  "geradoEm": "2026-07-19T09:45:00-03:00",
+  "origemRelatorio": "Estrategia Fibonacci automatica para BTCUSDz. Timeframe escolhido: M15, usando fibRet(0,80,nivel,direcao) para calcular retracoes pelo swing recente sem niveis manuais. Demais estrategias do BTCUSDz desativadas por haver apenas esta entrada ativa em estrategias[].",
+  "operar": true,
+  "comprar": false,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null,
+    "observacao": "Campo raiz legado; a logica de entrada esta em estrategias[]."
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "encerrarAtivaAcimaDe": null,
+    "encerrarAtivaAbaixoDe": null,
+    "stopLossPips": null,
+    "takeProfitPips": null,
+    "stopLossAtrMultiplo": null,
+    "takeProfitAtrMultiplo": 2.4,
+    "trailingStopPips": null,
+    "trailingStopAtrMultiplo": 1.4,
+    "breakevenGatilhoAtrMultiplo": 0.9,
+    "breakevenBufferPips": 12.0,
+    "cooldownAposFechamentoSegundos": 1800,
+    "applyToOpenPositions": false,
+    "slMinimoSobreSpread": 3.0
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 0.01,
+    "percentualConta": null,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 0.5,
+    "janelaHorarioPermitido": null
+  },
+  "indicadores": null,
+  "indicadoresMultiFonte": null,
+  "confiancaSinal": "media",
+  "perfil": "validacao-dsl-fibonacci-auto-m15",
+  "drawdownDiarioMaximoAgregadoPercent": 0.5,
+  "estrategias": [
+    {
+      "id": "btc-dsl-fibonacci-auto-m15",
+      "nome": "EstrategiaInterpretada",
+      "magicNumber": 828201,
+      "ativa": true,
+      "comprar": false,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": null,
+        "takeProfitPips": null,
+        "stopLossAtrMultiplo": null,
+        "takeProfitAtrMultiplo": 2.4,
+        "trailingStopPips": null,
+        "trailingStopAtrMultiplo": 1.4,
+        "breakevenGatilhoAtrMultiplo": 0.9,
+        "breakevenBufferPips": 12.0,
+        "cooldownAposFechamentoSegundos": 1800,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": 3.0
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 0.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [
+        {
+          "nome": "ATR",
+          "timeframe": "M15",
+          "parametros": {
+            "periodo": 14
+          }
+        }
+      ],
+      "parametros": {
+        "arquivoDefinicao": "BTCUSDz-agressiva-validacao.estrategia.json",
+        "niveis": [
+          {
+            "tipo": "resistencia",
+            "preco": 64488.92
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 64509.0
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 64523.03
+          },
+          {
+            "tipo": "suporte",
+            "preco": 64429.64
+          },
+          {
+            "tipo": "suporte",
+            "preco": 63921.09
+          },
+          {
+            "tipo": "suporte",
+            "preco": 62473.57
+          }
+        ]
+      }
+    }
+  ],
+  "notasDeTeste": [
+    "Extracao 2026-07-19 11:51 BRT: tick BTCUSDz bid=64448.12 ask=64448.12; riskFlag de spread invalido porque ask<=bid no snapshot, padrao recorrente deste broker/feed.",
+    "Regime atual: predominio_baixa. M1, M5 e M15 abaixo das EMAs 9/21/50; H1 lateral_misto, mas com RSI fraco.",
+    "Indicadores da extracao: M1 ATR14=17.17 e RSI14=31.51; M5 ATR14=53.45 e RSI14=24.09; M15 ATR14=90.64 e RSI14=34.81; H1 ATR14=163.45.",
+    "Auditoria anterior do magic 828201: 131 operacoes fechadas, bruto +2.02, comissao -11.46, liquido -9.44. Causa principal: churn M1, TP pequeno e reentrada imediata.",
+    "Timeframe escolhido: M15. Motivo: ATR suficiente para alvo bruto maior que a comissao e menor frequencia de candle, reduzindo reentradas.",
+    "Compra desabilitada temporariamente porque o mercado atual esta alinhado para baixa em M1/M5/M15. A DSL contem compra Fibonacci para uso futuro, mas a flag da estrategia impede compra enquanto o vies permanecer baixista.",
+    "Venda Fibonacci automatica: calcula zona pelo swing dos ultimos 80 candles M15, exige tendencia EMA9<EMA21<EMA50, inclinacao descendente e rejeicao/continuidade abaixo da retracao de 78.6%.",
+    "Gestao ajustada contra churn: cooldownAposFechamentoSegundos=1800, takeProfitAtrMultiplo=2.4, breakeven em 0.9 ATR e trailing de 1.4 ATR.",
+    "operar=true mantido para validacao em demo; monitorar os proximos fechamentos antes de considerar producao."
+  ]
+}

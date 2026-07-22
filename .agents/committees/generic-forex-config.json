@@ -1,0 +1,53 @@
+{
+  "name": "generic-forex-config",
+  "title": "Comite Generico Forex",
+  "assetClass": "FOREX",
+  "description": "Analisa e prepara configuracao candidata para pares Forex em ambiente MT5.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    { "id": "macro_fx", "role": "Analista Macro Forex", "skills": [] },
+    { "id": "price_action", "role": "Leitor Tecnico", "skills": [] },
+    { "id": "strategy_selector", "role": "Selecionador de Estrategia", "skills": [] },
+    { "id": "risk_officer", "role": "Gestor de Risco Forex", "skills": [] },
+    { "id": "config_builder", "role": "Preparador de Config Candidato", "skills": [] },
+    { "id": "chair", "role": "Presidente do Comite", "skills": [] }
+  ],
+  "tasks": [
+    {
+      "id": "macro_fx",
+      "agentId": "macro_fx",
+      "dependsOn": [],
+      "prompt": "Analise bancos centrais, juros, dolar/DXY, yields, calendario economico, noticias e regime de risco global que afetam o par Forex informado. Destaque eventos proximos e fontes que precisam ser confirmadas."
+    },
+    {
+      "id": "price_action",
+      "agentId": "price_action",
+      "dependsOn": [],
+      "prompt": "Leia o grafico do par em D1/H4/H1/M15/M5/M1. Classifique tendencia, range, volatilidade, suportes, resistencias, pullbacks, rompimentos e invalidacoes."
+    },
+    {
+      "id": "selecao_estrategia",
+      "agentId": "strategy_selector",
+      "dependsOn": [ "macro_fx", "price_action" ],
+      "prompt": "Selecione estrategia registrada no catalogo ou nenhuma. Justifique compatibilidade com spread, sessao, volatilidade, direcao e timeframe."
+    },
+    {
+      "id": "risco_operacional",
+      "agentId": "risk_officer",
+      "dependsOn": [ "macro_fx", "price_action", "selecao_estrategia" ],
+      "prompt": "Defina lote, stops, parciais, breakeven, trailing, maximo de posicoes, cooldown, drawdown, horario e bloqueios de noticia para Forex. Validar min volume, step, digits e spread."
+    },
+    {
+      "id": "config_candidato",
+      "agentId": "config_builder",
+      "dependsOn": [ "selecao_estrategia", "risco_operacional" ],
+      "prompt": "Prepare especificacao de config candidato preservando campos desconhecidos. Por padrao operar=false, exceto quando houver autorizacao explicita no contexto."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "macro_fx", "price_action", "selecao_estrategia", "risco_operacional", "config_candidato" ],
+      "prompt": "Consolide decisao final, gates de promocao, riscos de noticia, candidato recomendado e proxima revisao obrigatoria."
+    }
+  ]
+}

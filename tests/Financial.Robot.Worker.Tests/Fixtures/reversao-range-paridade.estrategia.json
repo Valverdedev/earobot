@@ -1,0 +1,20 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "ReversaoRangeParidade",
+  "compra": {
+    "setup": {
+      "todas": [
+        { "op": "pertoDe", "a": "tick.bid", "b": "nivel.suporte.preco", "toleranciaPreco": 100 },
+        { "op": "<=", "a": "rsi(14)[0]", "b": 30 }
+      ]
+    }
+  },
+  "venda": {
+    "setup": {
+      "todas": [
+        { "op": "pertoDe", "a": "tick.bid", "b": "nivel.resistencia.preco", "toleranciaPreco": 100 },
+        { "op": ">=", "a": "rsi(14)[0]", "b": 70 }
+      ]
+    }
+  }
+}

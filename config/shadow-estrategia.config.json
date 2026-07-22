@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0",
+  "symbol": "WINQ26",
+  "brokerSymbol": "WINQ26",
+  "terminalId": "genial",
+  "geradoEm": "2026-07-17T00:00:00Z",
+  "origemRelatorio": "Configuração Shadow Mode da EstrategiaInterpretada (BarByBar)",
+  "operar": true,
+  "comprar": true,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "stopLossPips": 500.0,
+    "takeProfitPips": 500.0
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 1.0,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 2.0,
+    "janelaHorarioPermitido": {
+      "inicioLocal": "09:05",
+      "fimLocal": "17:30"
+    }
+  },
+  "estrategias": [
+    {
+      "id": "shadow-interp-barbybar",
+      "nome": "EstrategiaInterpretada",
+      "magicNumber": 910,
+      "ativa": true,
+      "comprar": true,
+      "vender": true,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "stopLossPips": 500.0,
+        "takeProfitPips": 500.0
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 1.0,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 2.0
+      },
+      "janelaHorarioPermitido": {
+        "inicioLocal": "09:05",
+        "fimLocal": "17:30"
+      },
+      "parametros": {
+        "arquivoDefinicao": "barbybar-paridade.estrategia.json",
+        "corpoMinimoFracaoRange": 0.55,
+        "candlesImpulsoMinimo": 2,
+        "candlesImpulsoMax": 6,
+        "candlesPullbackMinimo": 1,
+        "candlesPullbackMax": 5,
+        "pullbackMaximoPercentual": 0.7,
+        "lookbackMedioRange": 20,
+        "climaxMultiploRange": 2.5,
+        "bufferStopPreco": 5.0
+      }
+    }
+  ]
+}

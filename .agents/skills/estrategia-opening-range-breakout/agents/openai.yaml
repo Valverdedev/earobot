@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Opening Range"
+  short_description: "Analisa rompimentos da faixa de abertura"
+  default_prompt: "Use $estrategia-opening-range-breakout para avaliar o ORB e preparar uma configuracao candidata."

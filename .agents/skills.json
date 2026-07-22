@@ -1,0 +1,8 @@
+{
+  "entries": [
+    { "path": "skills/ddd" },
+    { "path": "skills/solid" },
+    { "path": "skills/clean-code" },
+    { "path": "skills/mt5api" }
+  ]
+}

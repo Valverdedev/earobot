@@ -1,0 +1,125 @@
+{
+  "$schemaVersion": "1.0",
+  "symbol": "ETHUSDz",
+  "brokerSymbol": "ETHUSDz",
+  "terminalId": "activtraders",
+  "geradoEm": "2026-07-18T17:55:00Z",
+  "origemRelatorio": "Validacao tecnica da EstrategiaInterpretada para ETHUSDz. Config reduzida para disparo forcado em M1 para validar abertura, SL/TP e saida tecnica, apos validar o mesmo fluxo no BTCUSDz.",
+  "operar": true,
+  "comprar": true,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null,
+    "observacao": "Campo raiz legado; a logica de entrada esta em estrategias[]."
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "encerrarAtivaAcimaDe": null,
+    "encerrarAtivaAbaixoDe": null,
+    "stopLossPips": null,
+    "takeProfitPips": null,
+    "stopLossAtrMultiplo": null,
+    "takeProfitAtrMultiplo": 1.8,
+    "trailingStopPips": null,
+    "applyToOpenPositions": false,
+    "slMinimoSobreSpread": 1.0
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 0.1,
+    "percentualConta": null,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 1.0,
+    "janelaHorarioPermitido": null
+  },
+  "indicadores": null,
+  "indicadoresMultiFonte": null,
+  "confiancaSinal": "baixa",
+  "perfil": "validacao-dsl-disparo-forcado-saida-tecnica",
+  "drawdownDiarioMaximoAgregadoPercent": 1.0,
+  "estrategias": [
+    {
+      "id": "eth-dsl-agressiva-validacao",
+      "nome": "EstrategiaInterpretada",
+      "magicNumber": 828202,
+      "ativa": true,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": null,
+        "takeProfitPips": null,
+        "stopLossAtrMultiplo": null,
+        "takeProfitAtrMultiplo": 1.8,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": 1.0
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.1,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.0,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [
+        {
+          "nome": "ATR",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 14
+          }
+        }
+      ],
+      "parametros": {
+        "arquivoDefinicao": "ETHUSDz-agressiva-validacao.estrategia.json",
+        "niveis": [
+          {
+            "tipo": "resistencia",
+            "preco": 1845.36
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 1845.73
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 1846.10
+          },
+          {
+            "tipo": "suporte",
+            "preco": 1844.21
+          },
+          {
+            "tipo": "suporte",
+            "preco": 1843.74
+          },
+          {
+            "tipo": "suporte",
+            "preco": 1843.66
+          }
+        ]
+      }
+    }
+  ],
+  "notasDeTeste": [
+    "Extracao executada em localhost:8228, terminal activtraders, servidor Exness-MT5Trial12, login 83107880, saldo/equidade 964.87 USD.",
+    "Tick extraido em 2026-07-18T00:55:01: bid=1839.58, ask=1839.58, spread=0.00. O analysisContext marcou 'Spread invalido: ask <= bid'; o filtro spreadMaximo foi deixado amplo para validacao.",
+    "Metadados do simbolo: pointSize=0.01, stopsLevel=0, volume minimo=0.1, maximo=2000, step=0.01.",
+    "Sem posicoes abertas no ETHUSDz no momento da extracao.",
+    "Recheck 2026-07-18T10:56:39: preco 1844.54, RSI M1 88.20, ATR M1 0.1843, VWAP 1844.13, suportes atuais 1844.21/1843.74/1843.66 e resistencias atuais 1845.36/1845.73/1846.10.",
+    "Ajuste 2026-07-18 17:55: modo disparo forcado para teste. Compra dispara quando candle[0].fechamento > 1, condicao propositalmente sempre verdadeira para ETHUSDz.",
+    "Timeframe operacional mantido em M1 para validar rapidamente no proximo candle fechado.",
+    "SL/TP longos para validacao: stop estrutural usa extrema dos ultimos 5 candles com buffer de 2.5; takeProfitAtrMultiplo=1.8 aplicado sobre o risco estrutural quando houver StopSugerido.",
+    "A gestao fina fica no bloco saida tecnica do arquivo .estrategia.json: fecha por reversao contra apos lucro bruto minimo ou por candle forte contra se a posicao ja estiver perdendo.",
+    "operar=true para validacao em demo. Desligar apos confirmar abertura/fechamento de ordens."
+  ]
+}

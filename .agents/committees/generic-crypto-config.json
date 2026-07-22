@@ -1,0 +1,53 @@
+{
+  "name": "generic-crypto-config",
+  "title": "Comite Generico Crypto",
+  "assetClass": "CRYPTO",
+  "description": "Analisa e prepara configuracao candidata para criptoativos em ambiente MT5/CFD.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    { "id": "market_context", "role": "Analista Contexto Crypto", "skills": [] },
+    { "id": "price_action", "role": "Leitor Tecnico Crypto", "skills": [] },
+    { "id": "strategy_selector", "role": "Selecionador de Estrategia", "skills": [] },
+    { "id": "risk_officer", "role": "Gestor de Risco Crypto", "skills": [] },
+    { "id": "config_builder", "role": "Preparador de Config Candidato", "skills": [] },
+    { "id": "chair", "role": "Presidente do Comite", "skills": [] }
+  ],
+  "tasks": [
+    {
+      "id": "contexto_crypto",
+      "agentId": "market_context",
+      "dependsOn": [],
+      "prompt": "Analise BTC/ETH, dolar, liquidez global, funding/sentimento quando disponivel, noticias regulatoria/ETF/exchange, horario 24/7 e eventos de volatilidade relevantes para o criptoativo."
+    },
+    {
+      "id": "price_action",
+      "agentId": "price_action",
+      "dependsOn": [],
+      "prompt": "Leia Price Action multi-timeframe. Classifique tendencia, range, volatilidade, rompimentos, pullbacks, pavios, liquidez, suportes/resistencias e invalidacoes."
+    },
+    {
+      "id": "selecao_estrategia",
+      "agentId": "strategy_selector",
+      "dependsOn": [ "contexto_crypto", "price_action" ],
+      "prompt": "Escolha estrategia registrada ou nenhuma. Crypto exige filtros conservadores de spread, gaps, liquidez e volatilidade. Justifique parametros."
+    },
+    {
+      "id": "risco_operacional",
+      "agentId": "risk_officer",
+      "dependsOn": [ "contexto_crypto", "price_action", "selecao_estrategia" ],
+      "prompt": "Defina risco para crypto: lote minimo/step, SL/TP, parciais, breakeven, trailing, maximo de posicoes, cooldown, drawdown e pausas em volatilidade extrema."
+    },
+    {
+      "id": "config_candidato",
+      "agentId": "config_builder",
+      "dependsOn": [ "selecao_estrategia", "risco_operacional" ],
+      "prompt": "Prepare especificacao de config candidato com operar=false por padrao e preserve campos desconhecidos."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "contexto_crypto", "price_action", "selecao_estrategia", "risco_operacional", "config_candidato" ],
+      "prompt": "Consolide decisao final, gates, risco de 24/7, configuracao candidata e proxima revisao obrigatoria."
+    }
+  ]
+}

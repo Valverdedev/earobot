@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analisar USDJPY"
+  short_description: "Analise profissional de USD/JPY para o robo."
+  default_prompt: "Analise USDJPY seguindo o fluxo auditavel da skill."

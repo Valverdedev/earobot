@@ -1,0 +1,63 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "WINQ26ValidacaoEaFlexivel",
+  "descricao": "EstrategiaInterpretada flexivel para validar fluxo Worker/EA/MT5 em conta demo. Nao e tese operacional: compra praticamente forcada no proximo candle fechado valido, com stop calculavel por minima recente.",
+  "geradoPor": "Codex validacao EA WINQ26",
+  "geradoEm": "2026-07-20T13:40:00-03:00",
+  "filtros": [
+    {
+      "tipo": "spreadMaximo",
+      "valorPreco": 100
+    }
+  ],
+  "compra": {
+    "gatilho": {
+      "todas": [
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": 1
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "minima(0, 5)",
+      "bufferPreco": 50
+    }
+  },
+  "saida": {
+    "compra": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 0.25
+            },
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.15
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": "<=",
+              "a": "posicao.lucroBruto",
+              "b": -0.50
+            },
+            {
+              "padrao": "trendBarBaixa",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.35
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

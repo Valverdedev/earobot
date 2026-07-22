@@ -1,0 +1,66 @@
+{
+  "name": "win-pos-pregao",
+  "title": "Comite Pos-Pregao WIN",
+  "symbol": "WINQ26",
+  "description": "Audita execucao, aprendizado e possiveis ajustes apos o pregao do Mini Indice.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    {
+      "id": "execution_auditor",
+      "role": "Auditor de Execucao",
+      "skills": [ "mini-indice-auditoria-execucao" ]
+    },
+    {
+      "id": "shadow_analyst",
+      "role": "Analista Shadow Account",
+      "skills": [ "mini-indice-shadow-account" ]
+    },
+    {
+      "id": "strategy_reviewer",
+      "role": "Revisor de Estrategia",
+      "skills": [ "mini-indice-selecao-estrategia" ]
+    },
+    {
+      "id": "config_drafter",
+      "role": "Preparador de Config Candidato",
+      "skills": [ "mini-indice-config-candidato" ]
+    },
+    {
+      "id": "chair",
+      "role": "Presidente do Comite",
+      "skills": []
+    }
+  ],
+  "tasks": [
+    {
+      "id": "auditoria_execucao",
+      "agentId": "execution_auditor",
+      "dependsOn": [],
+      "prompt": "Audite os trades e logs do WINQ26 no dia. Classifique aderencia a tese, erros, acertos, overtrading e qualidade de execucao."
+    },
+    {
+      "id": "shadow_account",
+      "agentId": "shadow_analyst",
+      "dependsOn": [],
+      "prompt": "Compare a execucao real contra uma versao disciplinada da estrategia. Atribua delta de PnL por ruido, saida cedo/tarde, overtrading e sinais perdidos quando houver dados suficientes."
+    },
+    {
+      "id": "revisao_estrategia",
+      "agentId": "strategy_reviewer",
+      "dependsOn": [ "auditoria_execucao", "shadow_account" ],
+      "prompt": "Revise se a estrategia usada continua adequada ao regime observado e ao catalogo. Recomende manter, bloquear ou trocar estrategia."
+    },
+    {
+      "id": "config_candidato",
+      "agentId": "config_drafter",
+      "dependsOn": [ "revisao_estrategia" ],
+      "prompt": "Prepare proposta de config candidato somente se houver justificativa. Nao promova config ativo. Manter operar=false por padrao."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "auditoria_execucao", "shadow_account", "revisao_estrategia", "config_candidato" ],
+      "prompt": "Consolide auditoria pos-pregao em final.md e final.json. Informe aprendizado, qualidade de execucao, manter_config_atual, ajustes candidatos e proxima revisao."
+    }
+  ]
+}

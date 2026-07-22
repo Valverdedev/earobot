@@ -1,0 +1,187 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "BTCUSDzFibonacciAutoM15",
+  "descricao": "EstrategiaInterpretada Fibonacci automatica para BTCUSDz. Calcula a retracao pelo swing dos ultimos 80 candles M15 usando fibRet; prioriza venda enquanto M15 segue em baixa. Config de validacao em demo.",
+  "geradoEm": "2026-07-19T09:45:00-03:00",
+  "geradoPor": "Codex com operando fibRet(de, ate, nivel, direcao) adicionado a DSL.",
+  "filtros": [
+    {
+      "tipo": "atrMinimo",
+      "periodo": 14,
+      "valorPreco": 55.0
+    },
+    {
+      "tipo": "atrMaximo",
+      "periodo": 14,
+      "valorPreco": 240.0
+    },
+    {
+      "tipo": "candleMaxAtrMultiplo",
+      "periodo": 14,
+      "multiplo": 2.4
+    }
+  ],
+  "compra": {
+    "setup": {
+      "todas": [
+        {
+          "op": "alinhados",
+          "serie": [
+            "ema(9)[0]",
+            "ema(21)[0]",
+            "ema(50)[0]"
+          ],
+          "ordem": "decrescente"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 40,
+          "max": 68
+        },
+        {
+          "op": "<=",
+          "a": "candle[0].minimo",
+          "b": "fibRet(0, 80, 0.618, \"alta\") + 45"
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        {
+          "padrao": "rejeicaoCompradora",
+          "candle": 0,
+          "multiploPavio": 1.3
+        },
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "fibRet(0, 80, 0.618, \"alta\")"
+        },
+        {
+          "padrao": "fechamentoDirecional",
+          "candle": 0,
+          "lado": "alta"
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "minima(0, 8)",
+      "bufferPreco": 60.0
+    }
+  },
+  "venda": {
+    "setup": {
+      "todas": [
+        {
+          "op": "alinhados",
+          "serie": [
+            "ema(9)[0]",
+            "ema(21)[0]",
+            "ema(50)[0]"
+          ],
+          "ordem": "crescente"
+        },
+        {
+          "op": "inclinacao",
+          "a": "ema(21)",
+          "candles": 3,
+          "direcao": "baixa"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 22,
+          "max": 52
+        },
+        {
+          "op": ">=",
+          "a": "candle[0].maximo",
+          "b": "fibRet(0, 80, 0.618, \"baixa\") - 70"
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "fibRet(0, 80, 0.786, \"baixa\")"
+        },
+        {
+          "qualquer": [
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.25
+            },
+            {
+              "padrao": "trendBarBaixa",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.48
+            }
+          ]
+        },
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "ema(9)[0]"
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "maxima(0, 8)",
+      "bufferPreco": 60.0
+    }
+  },
+  "saida": {
+    "compra": {
+      "qualquer": [
+        {
+          "op": "cruzouAbaixo",
+          "a": "ema(9)",
+          "b": "ema(21)"
+        },
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 0.45
+            },
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.4
+            }
+          ]
+        }
+      ]
+    },
+    "venda": {
+      "qualquer": [
+        {
+          "op": "cruzouAcima",
+          "a": "ema(9)",
+          "b": "ema(21)"
+        },
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 0.45
+            },
+            {
+              "padrao": "rejeicaoCompradora",
+              "candle": 0,
+              "multiploPavio": 1.4
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

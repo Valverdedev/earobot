@@ -1,0 +1,111 @@
+﻿{
+  "$schemaVersion": "1.0",
+  "symbol": "HK50z",
+  "brokerSymbol": "HK50z",
+  "terminalId": "activtraders",
+  "geradoEm": "2026-07-12T21:10:00Z",
+  "origemRelatorio": "Analise raiz de price action combinando relatorio fundamental externo (relatorio_HK50_2026-07-12.md, LLM com busca web) com candles H1/M1 reais lidos via MT5 nesta execucao. Simbolo confirmado na corretora de execucao (activtraders): 'HK50z' (o relatorio citava 'HKInd', nome usado na corretora de dados broker-genial, nao existe no terminal de execucao).",
+  "operar": false,
+  "comprar": true,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null,
+    "observacao": "Campo raiz nao usado operacionalmente â€” este config usa 'estrategias[]' (Fase 5). Mantido apenas para satisfazer o schema legado."
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "encerrarAtivaAcimaDe": null,
+    "encerrarAtivaAbaixoDe": null,
+    "stopLossPips": null,
+    "takeProfitPips": null,
+    "stopLossAtrMultiplo": null,
+    "takeProfitAtrMultiplo": null,
+    "trailingStopPips": null,
+    "applyToOpenPositions": false,
+    "slMinimoSobreSpread": null
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 0.01,
+    "percentualConta": null,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 3.0,
+    "janelaHorarioPermitido": null
+  },
+  "indicadores": null,
+  "indicadoresMultiFonte": null,
+  "confiancaSinal": "media-alta",
+  "perfil": "swing-curto",
+  "drawdownDiarioMaximoAgregadoPercent": 3.0,
+  "estrategias": [
+    {
+      "id": "price-action-sr",
+      "nome": "PriceActionSuporteResistencia",
+      "magicNumber": 601,
+      "ativa": false,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": 100,
+        "takeProfitPips": 200,
+        "stopLossAtrMultiplo": null,
+        "takeProfitAtrMultiplo": null,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": 3.0
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [],
+      "parametros": {
+        "niveis": [
+          {
+            "tipo": "resistencia",
+            "preco": 24500.00
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 24723.00
+          },
+          {
+            "tipo": "suporte",
+            "preco": 24000.00
+          },
+          {
+            "tipo": "suporte",
+            "preco": 23900.00
+          }
+        ],
+        "toleranciaRompimentoPontos": 15,
+        "exigeRetesteConfirmado": true,
+        "candlesConfirmacao": 2
+      }
+    }
+  ],
+  "notasDeTeste": [
+    "2026-07-12: Simbolo confirmado via get_symbols no terminal de execucao (activtraders): 'HK50z'. O relatorio externo citava 'HKInd', que e o nome usado na corretora de dados (broker-genial), sem relacao com o simbolo de execucao real.",
+    "Mercado fechado no momento da criacao deste config (sabado/domingo) â€” ultimo tick real disponivel via MT5: 2026-07-10 19:59 UTC (sexta), bid 24196.5/ask 24209.7. Reabertura prevista com a sessao da manha de Hong Kong, madrugada de segunda-feira 14/07 (~22h30-01h BRT).",
+    "IMPORTANTE â€” spread real observado (~13.2 pontos) e MAIOR que o ATR14 M1 calculado (~2.49 pontos). Isso repete o achado ja documentado anteriormente para este ativo: scalping em M1 (estrategia CruzamentoEma) nao e viavel aqui, o custo de spread sozinho supera o movimento medio de um candle M1. Por isso este config usa APENAS a estrategia PriceActionSuporteResistencia (swing de prazo mais longo, SL/TP dimensionados no ATR H1), sem CruzamentoEma M1.",
+    "ATR14 H1 calculado nesta execucao (ultimos candles reais ate sexta 19h UTC): ~65.1 pontos. SL/TP da PriceAction calibrados em preco absoluto (100/200, ~1.5x/3x ATR H1), mesma proporcao usada nos demais ativos (BTCUSDz, XAUUSDz). slMinimoSobreSpread=3.0 (mais folgado que o padrao 1.0 dos outros ativos) dado o spread proporcionalmente maior deste simbolo.",
+    "Niveis de PriceActionSuporteResistencia combinam o relatorio fundamental externo (relatorio_HK50_2026-07-12.md â€” vies altista de curto prazo, recuperacao de tech chinesa, FOMC 28-29/07 com hold esperado) com validacao direta nos candles H1 reais: resistencia 24500 (maxima intradiaria de sexta, coerente com topos locais 24438-24451 na janela de dados) e 24723 (consolidacao historica citada no relatorio, fora da janela de 100 candles H1 mas mantida por ser nivel tecnico relevante); suporte 24000 (minima intradiaria de sexta, coerente com fundos locais 24003-24014) e 23900 (nivel de invalidacao do relatorio, coerente com cluster de precos 23900-23930 na janela de dados).",
+    "Niveis mais distantes citados no relatorio (resistencia psicologica 25000, suporte semanal 23481.95, suporte mensal historico 20190.62) NAO foram incluidos no array de niveis operacionais por estarem fora do alcance provavel de curto prazo â€” mantidos apenas como contexto informativo no relatorio original.",
+    "Relatorio externo classifica confianca do sinal como 'MEDIA-ALTA' e vies ALTISTA para a sessao de segunda-feira, mas alerta que e dependente de confirmacao intradiaria (teste critico do rompimento de 24500 ou defesa de 24000). confiancaSinal setado como 'media-alta' e perfil 'swing-curto' refletindo isso.",
+    "Riscos de fundo citados no relatorio: crise imobiliaria chinesa (risco sistemico de primeira ordem, sem sinal de colapso iminente) e FOMC 28-29/07 (hold esperado, baixo risco de surpresa no curto prazo).",
+    "PENDENTE: confirmar SYMBOL_TRADE_STOPS_LEVEL e SYMBOL_VOLUME_MIN/MAX/STEP reais do HK50z â€” sem tool que exponha isso diretamente, so na primeira tentativa de ordem.",
+    "Recomenda-se rodar o prompt de analise do HK50 novamente apos a abertura da sessao de Hong Kong (madrugada de segunda, ~22h30-01h BRT) para capturar o primeiro movimento real de preco e revalidar os niveis, conforme o proprio relatorio recomendou (proxima calibracao as 23h00 BRT de segunda)."
+  ]
+}

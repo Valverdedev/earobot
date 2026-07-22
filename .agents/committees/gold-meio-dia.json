@@ -1,0 +1,66 @@
+{
+  "name": "gold-meio-dia",
+  "title": "Comite Meio-Dia GOLD",
+  "symbol": "GOLD",
+  "description": "Revalida a tese do ouro durante o dia e decide manter, reduzir, pausar ou trocar estrategia.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    {
+      "id": "thesis_validator",
+      "role": "Validador de Tese GOLD",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "price_action_update",
+      "role": "Atualizador de Price Action GOLD",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "macro_update",
+      "role": "Atualizador Macro e Eventos",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "risk_officer",
+      "role": "Gestor de Risco Operacional",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "chair",
+      "role": "Presidente do Comite GOLD",
+      "skills": [ "analisar-gold" ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "validacao_tese",
+      "agentId": "thesis_validator",
+      "dependsOn": [],
+      "prompt": "Compare o plano anterior do GOLD com o mercado realizado, trades, PnL, eventos e invalidacoes. Classifique a tese como confirmada, parcial, invalidada ou inconclusiva."
+    },
+    {
+      "id": "price_action_update",
+      "agentId": "price_action_update",
+      "dependsOn": [],
+      "prompt": "Atualize a leitura grafica do GOLD: tendencia/range, rompimentos, pullbacks, falhas, niveis, spread e qualidade dos candles."
+    },
+    {
+      "id": "macro_update",
+      "agentId": "macro_update",
+      "dependsOn": [],
+      "prompt": "Atualize dolar, yields, Fed, inflacao/atividade, geopolitica e calendario restante do dia. Indique se confirmam ou invalidam a tese."
+    },
+    {
+      "id": "risco",
+      "agentId": "risk_officer",
+      "dependsOn": [ "validacao_tese", "price_action_update", "macro_update" ],
+      "prompt": "Valide risco restante e proponha acao operacional para GOLD: manter, reduzir_risco, trocar_estrategia, pausar ou virar_vies."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "validacao_tese", "price_action_update", "macro_update", "risco" ],
+      "prompt": "Consolide a decisao intradiaria do GOLD em final.md e final.json. Informe acao, vies, estrategia, risco, validade e gatilhos."
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+﻿interface:
+  display_name: "Analisar DAX"
+  short_description: "Analise profissional de DAX/Ger40Sep26 para o robo."
+  default_prompt: "Analise DAX/Ger40Sep26 seguindo o fluxo auditavel da skill."
+

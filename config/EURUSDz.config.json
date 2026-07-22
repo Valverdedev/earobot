@@ -1,0 +1,215 @@
+﻿{
+  "$schemaVersion": "1.0",
+  "symbol": "EURUSDz",
+  "brokerSymbol": "EURUSDz",
+  "terminalId": "activtraders",
+  "geradoEm": "2026-07-13T23:50:00Z",
+  "origemRelatorio": "Analise FINA de price action (pedido explicito do usuario) combinando relatorio de pesquisa profunda externo (deep-research-report.md, upload do usuario, gerado 13/07/2026 20:26 BRT com foco na proxima sessao de Asia) com candles H1/M15/M5 reais lidos via MT5 nesta execucao e o historico completo de deals do dia. Simbolo confirmado na corretora de execucao (activtraders): 'EURUSDz'.",
+  "operar": false,
+  "comprar": true,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null,
+    "observacao": "Campo raiz nao usado operacionalmente â€” este config usa 'estrategias[]' (Fase 5). Mantido apenas para satisfazer o schema legado."
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "encerrarAtivaAcimaDe": null,
+    "encerrarAtivaAbaixoDe": null,
+    "stopLossPips": null,
+    "takeProfitPips": null,
+    "stopLossAtrMultiplo": null,
+    "takeProfitAtrMultiplo": null,
+    "trailingStopPips": null,
+    "applyToOpenPositions": false,
+    "slMinimoSobreSpread": null
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 0.01,
+    "percentualConta": null,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 3.0,
+    "janelaHorarioPermitido": null
+  },
+  "indicadores": null,
+  "indicadoresMultiFonte": null,
+  "confiancaSinal": "media-baixa",
+  "perfil": "swing-curto",
+  "drawdownDiarioMaximoAgregadoPercent": 3.0,
+  "estrategias": [
+    {
+      "id": "price-action-sr",
+      "nome": "PriceActionSuporteResistencia",
+      "magicNumber": 701,
+      "ativa": false,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": 0.0015,
+        "takeProfitPips": 0.0030,
+        "stopLossAtrMultiplo": null,
+        "takeProfitAtrMultiplo": null,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": null
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [],
+      "parametros": {
+        "niveis": [
+          {
+            "tipo": "resistencia",
+            "preco": 1.13850
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 1.13900
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 1.14220
+          },
+          {
+            "tipo": "suporte",
+            "preco": 1.13775
+          },
+          {
+            "tipo": "suporte",
+            "preco": 1.13620
+          },
+          {
+            "tipo": "suporte",
+            "preco": 1.13250
+          }
+        ],
+        "toleranciaRompimentoPontos": 0.00015,
+        "exigeRetesteConfirmado": true,
+        "candlesConfirmacao": 2
+      }
+    },
+    {
+      "id": "cruzamento-ema",
+      "nome": "CruzamentoEma",
+      "magicNumber": 702,
+      "ativa": false,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": null,
+        "takeProfitPips": null,
+        "stopLossAtrMultiplo": 2.0,
+        "takeProfitAtrMultiplo": 3.0,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": 1.0
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [
+        {
+          "nome": "EMA",
+          "timeframe": "M5",
+          "parametros": {
+            "periodo": 9
+          }
+        },
+        {
+          "nome": "EMA",
+          "timeframe": "M5",
+          "parametros": {
+            "periodo": 21
+          }
+        },
+        {
+          "nome": "RSI",
+          "timeframe": "M5",
+          "parametros": {
+            "periodo": 14
+          }
+        },
+        {
+          "nome": "ATR",
+          "timeframe": "M5",
+          "parametros": {
+            "periodo": 14
+          }
+        }
+      ],
+      "parametros": {}
+    }
+  ],
+  "notasDeTeste": [
+    "2026-07-12: Simbolo confirmado via get_symbols/get_symbol_price no terminal de execucao (activtraders): 'EURUSDz'. Mercado ja reaberto no momento da criacao (domingo ~21h UTC, sessao de Asia).",
+    "IMPORTANTE â€” no momento exato da criacao deste config o spread observado estava em ~20 pontos (2.0 pips, bid 1.14051/ask 1.14071), acima do normal para EURUSD, tipico de minutos apos a reabertura semanal (liquidez ainda se formando). Nesta conta o spread historico deste ativo tende a ficar proximo de zero assim que a sessao se normaliza (comportamento ja observado em outros pares/ativos desta mesma conta) â€” nao e motivo para desativar as estrategias, apenas para acompanhar os primeiros preenchimentos com atencao. slMinimoSobreSpread da CruzamentoEma ajustado para 1.5 (levemente mais conservador que o padrao 1.0) como margem de seguranca enquanto o spread nao normaliza.",
+    "ATR14 calculado a partir dos candles reais disponiveis: H1 ~0.00112 (~11.2 pips), usando as ultimas 14 horas completas de sexta-feira (mercado fechado no fim de semana, sem candles de sabado/domingo antes da reabertura). M1 ~0.00011 (~1.1 pip), calculado sobre os poucos candles ja formados desde a reabertura (amostra pequena, tende a normalizar ao longo da sessao).",
+    "SL/TP da PriceAction calibrados em preco absoluto (0.0017/0.0034, ~1.5x/3x ATR H1), mesma proporcao usada nos demais ativos (BTCUSDz, XAUUSDz, HK50z). SL/TP da CruzamentoEma via multiplo de ATR M1 (2.0/3.0), mesmo padrao.",
+    "Niveis de PriceActionSuporteResistencia combinam o relatorio fundamental externo (analise_asia_2026-07-12_eurusd.md â€” vies neutro a levemente baixista na sessao de Asia, CPI dos EUA na terca-feira como principal catalisador da semana) com os candles H1 reais: resistencia 1.14590 (maxima da semana citada no relatorio, coerente com topo local 1.14584-1.14607 de 10/07 02h-03h) e 1.14494 (topo intradiario local de 10/07 04h); suporte 1.13950 (minima da semana citada no relatorio, de 08/07) e 1.14004 (minima local pos-reabertura de domingo).",
+    "Relatorio classifica confianca do sinal como 'MEDIA-BAIXA' â€” sessao de Asia com poucos gatilhos, mas proximidade do CPI dos EUA (terca-feira, ~48h a frente) torna qualquer vies direcional de curtissimo prazo sujeito a reversao rapida. confiancaSinal setado como 'media-baixa' e perfil 'swing-curto' refletindo isso. Relatorio recomenda reduzir tamanho de posicao ou apertar stops ate a divulgacao do CPI â€” mantido lote minimo (0.01) por ja ser o padrao desta conta.",
+    "Calendario de risco da semana: CPI EUA terca 14/07 ~10h30 BRT (principal catalisador), PPI EUA + decisao BoC + Beige Book quarta 15/07, vendas no varejo EUA quinta 16/07, CPI final Zona do Euro sexta 17/07.",
+    "Duas estrategias em paralelo com magic numbers isolados (701 PriceAction, 702 CruzamentoEma), mesmo padrao dos demais ativos, para comparacao real de performance via get_deals.",
+    "PENDENTE: confirmar SYMBOL_TRADE_STOPS_LEVEL e SYMBOL_VOLUME_MIN/MAX/STEP reais do EURUSDz â€” sem tool que exponha isso diretamente, so na primeira tentativa de ordem.",
+    "Recomenda-se recalibrar apos a divulgacao do CPI dos EUA (terca-feira) dado o alto potencial de reversao do vies direcional mencionado no relatorio.",
+    "2026-07-12T23:55:00Z: REANALISE COMPLETA â€” relatorio original (analise_asia_2026-07-12_eurusd.md) reledio: vies neutro a levemente baixista da sessao de Asia, CPI dos EUA como catalisador central da semana, mantem-se valido.",
+    "NOTICIAS FRESCAS (busca web nesta execucao): mesmo driver geopolitico ja identificado no XAUUSDz e USTECz â€” escalada de hostilidades EUA-Ira no fim de semana elevou o petroleo e gerou fluxo de dolar como porto-seguro, pressionando o EUR/USD para baixo apesar de expectativas de novo aperto do BCE (reuniao do BCE em 23/07, mercado precificando >30bps adicionais de alta pelo petroleo elevar a inflacao da zona do euro â€” declaracao do membro do BCE Yannis Stournaras de que o BCE esta 'de volta a estaca zero' no combate a inflacao). CPI dos EUA de terca-feira (14/07) e o pivot da semana: consenso ~0.1% m/m, taxa anual caindo de ~4.2% para ~3.9%; CPI fraco reabriria caminho para EUR/USD ate 1.15, CPI forte reforca o dolar. Depoimento do presidente do Fed Kevin Warsh na Camara tambem terca-feira. Faixa tecnica de curto prazo esperada pelos analistas: 1.1300-1.1500. Fonte: nordfx.com/market-news, cambridgecurrencies.com (consultados nesta execucao).",
+    "PRICE ACTION ATUALIZADO: fechamento de sexta-feira (10/07, 20h UTC) em 1.14147. Reabertura de domingo (21h UTC) com gap de baixa para 1.14011 (~13-14 pips abaixo do fechamento de sexta), seguida de queda adicional ate minima de sessao 1.13887 (22h UTC) â€” mesmo padrao de fuga para o dolar por risco geopolitico observado no XAUUSDz (gap de queda no ouro) e USTECz. Preco atual ~1.1401, recuperando parcialmente da minima da sessao. O nivel antigo de suporte 1.14004 foi rompido durante a madrugada e agora funciona como pivot/resistencia-suporte mista dentro do novo range mais estreito.",
+    "ATR14 recalculado nesta execucao: H1 ~0.00115 (~11.5 pips, calculo sobre os candles mais recentes incluindo a barra que engloba o gap de reabertura â€” tratado como parcialmente inflado mas proximo do valor anterior de 0.00112, sem mudanca estrutural de regime). M1 ~0.00009 (~0.9 pip), MENOR que o valor anterior (0.00011) â€” mercado de segunda-feira ainda com liquidez fina/pouco movimento minuto a minuto apos a volatilidade inicial do gap.",
+    "Niveis RECALIBRADOS: resistencia 1.14059 (pico da reabertura de domingo, imediata), 1.14147 (fechamento de sexta-feira, sendo retestado por baixo), 1.14590 (resistencia semanal mais ampla, mantida do relatorio original). Suporte: 1.14004 (nivel antigo, agora pivot fraco dentro do range), 1.13950 (nivel do relatorio original, dentro do range atual), 1.13887 (minima real da sessao pos-gap, novo suporte imediato mais confiavel). toleranciaRompimentoPontos reduzida de 0.0004 para 0.0003 acompanhando o ATR M1 menor.",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-12, pareamento por position_id): PriceActionSuporteResistencia (magic 701) teve 1 trade fechado (compra em 1.14041, fechada em 1.13947, -0.94 USD bruto / -0.99 com comissao) e 1 trade ainda aberto (compra em 1.13991, atualmente ~+0.19 USD flutuante). CruzamentoEma (magic 702) operou com MUITO mais frequencia â€” 11 trades fechados (venda em quase todos, coerente com o vies baixista do dia) somando +0.62 USD de lucro bruto, mas apos comissao (-0.05 por trade fechado) o resultado liquido realizado cai para apenas ~+0.12 USD, alem de 1 posicao aberta com ~-0.03 flutuante.",
+    "ACHADO IMPORTANTE: diferente do XAUUSDz (onde a CruzamentoEma teve desempenho forte, +27.99 USD), no EURUSDz o SL/TP baseado em multiplo de ATR M1 (2.0x/3.0x sobre um ATR M1 de apenas ~0.00009, ou seja, SL/TP de ~1.8/2.7 pips) esta gerando MUITO churn â€” 11 entradas/saidas em poucas horas, cada uma com lucro/prejuizo de centavos, quase todo o resultado bruto sendo consumido pela comissao fixa de 0.05 USD por trade (11 trades = 0.55 USD de comissao acumulada, quase anulando o lucro bruto de 0.62 USD). Diagnostico: EURUSDz tem volatilidade M1 muito menor que XAUUSDz/USTECz em termos absolutos, entao os mesmos multiplos de ATR geram stops proporcionalmente pequenos demais para superar o custo fixo de transacao.",
+    "AJUSTE APLICADO: aumentei stopLossAtrMultiplo de 2.0 para 2.5 e takeProfitAtrMultiplo de 3.0 para 4.0 na CruzamentoEma, e slMinimoSobreSpread de 1.5 para 2.0 â€” objetivo e reduzir a frequencia de entradas/saidas e dar mais espaco para cada trade superar a comissao fixa, mantendo a mesma logica de EMA9/21+RSI+ATR. NAO desativei a estrategia (resultado ainda levemente positivo, +0.12 liquido) â€” apenas recalibrada para o regime de volatilidade real observado. Recomenda-se reavaliar o numero de trades e o resultado liquido apos algumas horas com os novos multiplos.",
+    "Decisao sobre PriceActionSuporteResistencia: mantida ativa sem alteracao de logica (apenas niveis atualizados) â€” amostra de 1 trade fechado e insuficiente para qualquer conclusao (mesmo criterio ja aplicado ao XAUUSDz e ao caso historico do ETHBTCz).",
+    "2026-07-13T04:12:00Z: REANALISE COMPLETA. NOTICIAS FRESCAS: EUR/USD opera perto de 1.143, recuando do topo de 2026 (1.20); ECB subiu juros em 11/06 pela primeira vez desde 2023 e mercado precifica mais duas altas nos proximos 12 meses (primeira possivelmente em setembro) para conter inflacao puxada pelo petroleo do conflito Ira-EUA; Fed sinalizou vies de alta (nao corte) na reuniao de 17/06, com CPI de maio em 4.2% AA (maior desde abril/2023). Cenario base (~50% probabilidade) ve EUR/USD em range 1.13-1.21; cenario baixista (~25%) projeta rompimento de 1.14 rumo a 1.10 caso o cessar-fogo no Ira colapse e o Fed suba juros antes do BCE conseguir acompanhar. CPI dos EUA de terca 14/07 (consenso ~0.1% m/m, taxa anual caindo para ~3.9%) e o pivot mais importante da semana, ainda nao divulgado nesta execucao.",
+    "ESTRUTURA DE PRECO ATUALIZADA: preco rompeu o suporte antigo de 1.13950/1.13887 durante a madrugada de segunda-feira, atingindo nova minima do periodo analisado (11 dias) em 1.13844 (01:00 UTC) â€” a minima mais baixa de todo o intervalo de dados coletado, reforÃ§ando o cenario baixista do relatorio. Recuperacao parcial ate ~1.1398 atual, consolidando dentro de um range mais estreito.",
+    "ATR14 recalculado: H1 ~0.00101 (~10.1 pips, proximo do valor anterior de 0.00115, leve queda) e M1 ~0.00008 (~0.8 pip, mercado de madrugada de segunda-feira ainda com liquidez fina). Sem mudanca estrutural de regime de volatilidade.",
+    "NIVEIS RECALIBRADOS: resistencia mantida (1.14059, 1.14147, 1.14590 â€” ainda validas como zonas de rejeicao). Suporte: 1.13887 (nivel antigo, agora pivot/resistencia-suporte mista), 1.13844 (NOVO, minima real de todo o periodo de 11 dias observado, suporte mais confiavel), 1.13750 (novo suporte estrutural mais profundo, nivel redondo abaixo da minima observada, para dar margem caso o cenario baixista do relatorio se concretize). SL/TP da PriceAction ajustados de 0.0017/0.0034 para 0.0015/0.0030 (~1.5x/3x do novo ATR H1, levemente mais apertado que antes).",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-13, pareamento por position_id): PriceActionSuporteResistencia (magic 701) â€” apenas 1 trade aberto hoje (compra 1.13958), ainda sem fechamento, amostra insuficiente. CruzamentoEma (magic 702) â€” 3 trades fechados (2 perdas via SL: -0.16 e -0.18; 1 ganho via TP: +0.23) e 1 posicao ainda aberta; resultado bruto liquido dos fechados: -0.11 USD, mais -0.15 USD de comissao (3 x 0.05) = -0.26 USD liquido no dia. Ainda ha sinal de churn (3 trades em ~1h), mas amostra pequena demais (3 trades fechados) para justificar novo ajuste de multiplos de ATR tao cedo apos o ajuste feito ontem (2.0->2.5 e 3.0->4.0).",
+    "Decisao: mantidos os multiplicadores de ATR da CruzamentoEma (2.5x/4.0x) e slMinimoSobreSpread (2.0) sem alteracao adicional â€” ajuste de ontem ainda em periodo de observacao, amostra de apenas 3 trades fechados hoje nao e suficiente para conclusao. Recomenda-se reavaliar apos o CPI de terca-feira (14/07), que deve gerar volume e volatilidade suficientes para uma amostra mais robusta.",
+    "2026-07-13T07:08:00Z: REANALISE COMPLETA (execucao agendada). NOTICIAS FRESCAS: EUR/USD opera em ~1.143, tentando reagir das minimas de um ano, com expectativa de nova alta de juros do BCE em setembro. Conflito no Estreito de Hormuz elevou inflacao dos EUA e da zona do euro; BCE subiu juros em 11/06 (primeira alta desde 2023) e Fed sinalizou vies de alta em 17/06. Cenario base (~50%) mantem EUR/USD em range 1.13-1.21; cenario baixista (~25%) projeta 1.08-1.13 se o cessar-fogo no Ira colapsar e o Fed subir juros antes do BCE. Nenhuma mudanca material de tese desde a reanalise anterior â€” CPI dos EUA de terca 14/07 (amanha) continua sendo o pivot mais importante da semana, ainda nao divulgado.",
+    "ESTRUTURA DE PRECO: preco oscilando dentro do range ja mapeado, entre a minima de sessao 1.13844 (01:00 UTC, ja registrada) e a resistencia imediata 1.14059/1.14067 (testada e levemente rompida por segundos as 06:44-06:51 UTC, sem fechamento H1 acima). Atualmente ~1.1404, dentro do range. NENHUM rompimento estrutural novo â€” niveis de suporte/resistencia (1.14059/1.14147/1.14590 resistencia; 1.13887/1.13844/1.13750 suporte) MANTIDOS sem alteracao.",
+    "ATR14 recalculado: H1 ~0.00095 (~9.5 pips, proximo do valor anterior 0.00101, leve queda, sem mudanca de regime) e M1 ~0.000175 (~1.75 pip) â€” MAIS QUE O DOBRO do valor anterior (0.00008/0.8 pip), aumento real de volatilidade minuto a minuto (nao gap-related, calculado sobre candles integralmente dentro do dia de hoje). SL/TP da PriceAction ajustados de 0.0015/0.0030 para 0.0014/0.0029 (~1.5x/3x do novo ATR H1, variacao minima).",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-13, pareamento por position_id): CruzamentoEma (magic 702) operou com ALTISSIMA frequencia â€” 22 posicoes abertas hoje, 21 fechadas (1 ainda aberta). Resultado bruto dos fechamentos: +0.82 USD; apos comissao (21 x 0.05 = 1.05 USD nos trades fechados, + 0.05 do trade ainda aberto) o resultado liquido realizado fica NEGATIVO em -0.23 USD. Isso ocorre MESMO APOS o ajuste de ontem (2.0->2.5 / 3.0->4.0) â€” o aumento do ATR M1 real (dobrou) fez os multiplicadores antigos voltarem a gerar stops/alvos proporcionalmente apertados demais para o novo ritmo do mercado, mantendo o churn elevado (21 trades em ~4h). PriceActionSuporteResistencia (magic 701): 1 trade fechado (compra 1.13958 -> venda 1.14048, profit +0.9 - comissao 0.05 = liquido +0.85) e 1 posicao ainda aberta (compra 1.14035) â€” amostra pequena, positiva.",
+    "AJUSTE APLICADO: aumentei novamente stopLossAtrMultiplo de 2.5 para 3.0 e takeProfitAtrMultiplo de 4.0 para 5.0 na CruzamentoEma, e slMinimoSobreSpread de 2.0 para 2.5 â€” o ATR M1 real dobrou desde o ultimo ajuste, entao os multiplicadores precisam acompanhar para reduzir a frequencia de entradas/saidas e dar espaco suficiente para cada trade superar a comissao fixa de ~0.05 USD por perna. NAO desativei a estrategia apesar do resultado liquido negativo no dia â€” o problema identificado e de calibracao de parametros (churn por comissao), nao de direcionalidade do sinal (mais trades venceram que perderam em termos brutos: bruto +0.82). Recomenda-se acompanhar de perto a proxima janela apos este ajuste; se o churn persistir com os novos multiplicadores, considerar aumentar ainda mais ou revisar a logica de saida da estrategia.",
+    "Decisao sobre PriceActionSuporteResistencia: mantida ativa sem alteracao de logica, niveis e SL/TP apenas recalibrados na margem pelo ATR H1 atualizado â€” amostra de 1 trade fechado positivo, insuficiente para qualquer conclusao adicional.",
+    "2026-07-13T10:15:00Z: MUDANCA ESTRUTURAL NA CRUZAMENTOEMA (decisao do usuario apos analise de historico de ordens do dia). Diagnostico quantitativo: com ATR M1 ~1.75 pip, SL/TP de 2.5x/4.0x geravam stop de ~2.25 pip / alvo de ~3.6 pip; com taxa de acerto real observada de 46% (18W/21L em 39 trades ate 10h UTC), o valor esperado bruto por trade ficava em ~+0.44 pip, mas a comissao fixa de 0.05 USD por 0.01 lote equivale a ~0.5 pip nesse tamanho de posicao â€” ou seja, o EV liquido ficava proximo de -0.06 pip/trade, batendo quase exatamente com o resultado real (-0.24 USD em 39 trades = -0.006 USD/trade). Sucessivos aumentos de multiplicador de ATR (2.0->2.5->3.0 e 3.0->4.0->5.0 em execucoes anteriores) nao resolveram porque o problema de raiz nao e o multiplicador, e sim o timeframe M1 ser fino demais para o custo fixo de transacao neste ativo especificamente (diferente do XAUUSDz/USTECz, onde a mesma logica funciona bem, pois o ATR absoluto desses ativos e ordens de grandeza maior).",
+    "MUDANCA APLICADA: todos os indicadores da CruzamentoEma (EMA9, EMA21, RSI14, ATR14) migrados de timeframe M1 para M5 â€” menos sinais, cada um com movimento medio maior, diluindo o peso da comissao fixa por trade. Como o ATR agora e calculado sobre M5 (naturalmente maior que M1), os multiplicadores de SL/TP foram revertidos ao padrao usado nos demais ativos (stopLossAtrMultiplo 2.0, takeProfitAtrMultiplo 3.0, slMinimoSobreSpread 1.0) em vez de manter os multiplicadores inflados (3.0/5.0/2.5) que foram um remendo para o problema errado. Logica de sinal (cruzamento EMA9/21 + filtro RSI) mantida identica, apenas o timeframe de calculo mudou.",
+    "Recomenda-se acompanhar o numero de trades/hora e o resultado liquido da CruzamentoEma nas proximas execucoes agendadas (01h e 04h) apos essa mudanca â€” se o churn persistir mesmo em M5, o proximo passo cogitado e trocar a logica da estrategia para algo de reversao a media (RSI em extremos/Bollinger) em vez de cruzamento de EMA, dado que EURUSD em janelas de baixa volatilidade tende a ser mais 'range-bound' que tendencial.",
+    "2026-07-13T23:50:00Z: ANALISE FINA DE PRICE ACTION (pedido explicito do usuario, combinando relatorio de pesquisa profunda 'deep-research-report.md' com candles H1/M15/M5 reais). FUNDAMENTAL (do relatorio): BCE com deposit rate em 2.25% (MRO 2.40%, marginal lending 2.65%) desde 17/06; Fed manteve Fed Funds em 3.50-3.75% na mesma data; DXY em 101.28 (UST 2Y 4.282%, 10Y 4.617%); EUR responde por 57.6% do peso no USDX, entao qualquer forca do dolar pesa desproporcionalmente no par. Zona do euro segue sob pressao do diferencial de juros favoravel ao dolar.",
+    "TECNICO DIARIO (do relatorio): preco opera ABAIXO de todas as medias moveis diarias â€” MA20 1.1405, MA50 1.1417, MA100 1.1419, MA200 1.1422 â€” formando uma 'zona de oferta' concentrada entre 1.1405 e 1.1422. Suporte diario em 1.1378 e 1.1362, com suporte estrutural mais profundo em 1.1325 (minima de 52 semanas). RSI(14) diario em 34.5 (proximo de sobrevenda), MACD negativo (-0.001), ADX(14) em 40.0 (tendencia forte e estabelecida). Fechamento semanal da semana passada (10/07) em 1.1417, formando duas semanas consecutivas de fechamento em baixa â€” enquanto o preco ficar abaixo desse nivel, a tese dominante do relatorio e de continuacao baixista rumo a 1.1391, 1.1362 e eventualmente 1.1325.",
+    "PIVOS CLASSICOS calculados pelo relatorio para a sessao de hoje: Pivot 1.1383, R1 1.1385, R2 1.1388, R3 1.1390, S1 1.1380, S2 1.1378, S3 1.1375 â€” janela extremamente estreita (~15 pips entre R3 e S3), coerente com o ADX alto (tendencia direcional, nao lateral).",
+    "CALENDARIO DE RISCO (proximas 24-72h, do relatorio): 14/07 09h30 BRT CPI dos EUA m/m e nucleo a/a (consenso 2.9%) â€” catalisador dominante da semana; 14/07 11h00 BRT depoimento de Kevin Warsh na Camara; 14/07 tarde varios discursos do Fed (Barr, Goolsbee, Cook, Bowman); 15/07 PPI, discurso de John Williams, Warsh no Senado, Beige Book do Fed; 16/07 Varejo, pedidos de seguro-desemprego, Philly Fed.",
+    "VALIDACAO CONTRA CANDLES REAIS (H1/M15/M5, ate 23:45 UTC de hoje): dia abriu ~1.1404 (compativel com o open diario do relatorio), maxima do dia 1.14458 (08h UTC, compativel com a maxima diaria 1.1446 do relatorio), mostrando forte tendencia de queda ao longo do dia ate a minima real 1.13775 (20h UTC, batendo quase exatamente com S2/S3 do pivo 1.1378/1.1375). Preco atual 1.13835 (23:45 UTC) â€” ligeiramente acima da minima do dia e proximo do Pivot (1.1383)/S1 (1.1380), zona de indefinicao de curtissimo prazo apos a forte perna de queda da tarde (14h-20h UTC).",
+    "ATR14 H1 recalculado nesta execucao (ultimas 14 horas completas, 09h-22h UTC): ~0.00101 (~10.1 pips) â€” praticamente identico ao valor da execucao anterior (0.00095), confirmando regime de volatilidade estavel apesar da forte direcionalidade. SL/TP da PriceAction recalibrados de 0.0014/0.0029 para 0.0015/0.0030 (~1.5x/3x ATR H1).",
+    "NIVEIS RECALIBRADOS (analise FINA, granularidade reduzida de ~0.0003 para 0.00015 na tolerancia de rompimento, refletindo a estrutura de pivo muito mais estreita mapeada pelo relatorio e confirmada nos candles): resistencia 1.13900 (zona R2 do pivo / topo local do fim de tarde, imediata), 1.13900->1.14220 removendo os niveis antigos (1.14059/1.14147/1.14590) que ja foram todos rompidos ha varias horas e ficaram obsoletos frente ao preco atual; nivel intermediario 1.14220 marca o piso da 'zona de oferta' das medias moveis diarias (MA200 1.1422), alvo relevante apenas em caso de reversao mais forte. Suporte: 1.13775 (minima real de hoje, coincide com S2/S3 do pivo, suporte mais confiavel de curtissimo prazo), 1.13620 (suporte diario citado no relatorio, 1.1362), 1.13250 (suporte estrutural profundo, minima de 52 semanas, 1.1325).",
+    "PLANO DO RELATORIO PARA A PROXIMA SESSAO (Asia, abertura ~0h34 UTC): vies 'baixista moderado', confianca 'media' na direcao mas 'baixa' para execucao agressiva especificamente durante a Asia (liquidez fina pre-CPI). Confirmacao de continuacao baixista: sustentacao abaixo de 1.1383, sobretudo rompimento de 1.1378, abrindo caminho para 1.1375/1.1362/1.1325. Invalidacao: reconquista e sustentacao acima de 1.1390, sobretudo acima de 1.1405, abrindo teste da zona 1.1417-1.1422. confiancaSinal mantido em 'media-baixa' refletindo a mesma cautela do relatorio (media na tese direcional, baixa na agressividade de execucao pre-CPI).",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-13, so periodo POS-migracao M1->M5 da CruzamentoEma, 10h15-19h26 UTC, pareamento por position_id): CruzamentoEma (magic 702) â€” 14 trades fechados, frequencia de ~2.2 trades/hora (MUITO abaixo do ritmo M1 anterior, que chegava a 22 trades em 4h), resultado bruto +2.50 USD, liquido apos comissao (14 x 0.05 = 0.70) +1.80 USD NO DIA â€” primeiro periodo claramente positivo desde a criacao deste config, confirmando que a migracao M1->M5 da execucao anterior (10h15) resolveu o problema de churn. PriceActionSuporteResistencia (magic 701) â€” 11 trades fechados no mesmo periodo, bruto -0.04 USD, liquido apos comissao (11 x 0.05 = 0.55) -0.59 USD â€” levemente negativo mas de baixa magnitude, mercado mais em tendencia de queda contÃ­nua que em reversoes limpas nas ultimas horas, o que penaliza uma estrategia de reversao em S/R.",
+    "DECISAO: nenhuma mudanca de logica na CruzamentoEma (M5, 2.0x/3.0x ATR, resultado positivo confirmado ao longo de ~6h de amostra) â€” apenas niveis/tolerancia da PriceAction recalibrados para a estrutura fina de pivo mapeada acima. PriceAction mantida ativa apesar do resultado levemente negativo (amostra de 11 trades, magnitude pequena, e o proprio relatorio ja alertava para baixa confianca de execucao agressiva nesta janela pre-CPI) â€” recomenda-se reavaliar apos o CPI de amanha (14/07, 09h30 BRT), que deve definir se o mercado segue em tendencia (favorece CruzamentoEma) ou entra em range mais definido (favorece PriceAction nos niveis finos acima)."
+  ]
+}
+

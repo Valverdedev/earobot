@@ -1,0 +1,4 @@
+interface:
+  display_name: "Análise Profissional do EURUSD"
+  short_description: "Análise auditável do EURUSD"
+  default_prompt: "Use $analisar-eurusd para gerar uma análise profissional e auditável do EUR/USD, selecionar estratégia do catálogo e preparar o config candidato com controles de risco."

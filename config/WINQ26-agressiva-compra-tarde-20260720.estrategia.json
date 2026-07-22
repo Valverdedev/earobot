@@ -1,0 +1,141 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "WINQ26CompraAgressivaTarde",
+  "descricao": "EstrategiaInterpretada agressiva para demo apos reanalise das 12:01 BRT. Compra continuacao/rompimento curto quando M1 e M5 estiverem em alta, preco acima da VWAP M1 e houver fechamento direcional. Filtros reduzidos para aumentar chance de entrada, mantendo spread e ATR.",
+  "geradoPor": "Codex comite WINQ agressivo 2026-07-20",
+  "geradoEm": "2026-07-20T12:04:00-03:00",
+  "filtros": [
+    {
+      "tipo": "janelaHorario",
+      "inicio": "12:00",
+      "fim": "13:30"
+    },
+    {
+      "tipo": "spreadMaximo",
+      "valorPreco": 15
+    },
+    {
+      "tipo": "atrMinimo",
+      "periodo": 14,
+      "valorPreco": 55
+    },
+    {
+      "tipo": "atrMaximo",
+      "periodo": 14,
+      "valorPreco": 560
+    },
+    {
+      "tipo": "candleMaxAtrMultiplo",
+      "periodo": 14,
+      "multiplo": 3.2
+    }
+  ],
+  "compra": {
+    "setup": {
+      "todas": [
+        {
+          "op": ">",
+          "a": "ema(9)[0]",
+          "b": "ema(21)[0]"
+        },
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "vwap(14)[0] + 40"
+        },
+        {
+          "op": ">",
+          "a": "ema(9,M5)[0]",
+          "b": "ema(21,M5)[0]"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 38,
+          "max": 82
+        }
+      ]
+    },
+    "gatilho": {
+      "qualquer": [
+        {
+          "todas": [
+            {
+              "op": ">",
+              "a": "tick.ask",
+              "b": "candle[1].maximo"
+            },
+            {
+              "padrao": "fechamentoDirecional",
+              "candle": 0,
+              "lado": "alta"
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": ">",
+              "a": "candle[0].fechamento",
+              "b": "ema(9)[0]"
+            },
+            {
+              "padrao": "trendBarAlta",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.42
+            }
+          ]
+        },
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "tick.ask",
+              "b": 175625
+            },
+            {
+              "op": ">=",
+              "a": "candle[0].fechamento",
+              "b": 175560
+            }
+          ]
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "minimaJanela(11:30,12:05)",
+      "bufferPreco": 35
+    }
+  },
+  "saida": {
+    "compra": {
+      "qualquer": [
+        {
+          "op": "cruzouAbaixo",
+          "a": "ema(9)",
+          "b": "ema(21)"
+        },
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "vwap(14)[0] - 30"
+        },
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 0.45
+            },
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.35
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

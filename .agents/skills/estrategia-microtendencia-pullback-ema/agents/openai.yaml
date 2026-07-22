@@ -1,0 +1,4 @@
+interface:
+  display_name: "Especialista Microtendencia EMA"
+  short_description: "Analisa microtendencias e pullbacks por EMA"
+  default_prompt: "Use $estrategia-microtendencia-pullback-ema para avaliar a microtendencia e preparar uma configuracao candidata."

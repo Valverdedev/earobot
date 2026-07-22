@@ -1,0 +1,77 @@
+{
+  "name": "gold-pre-abertura",
+  "title": "Comite Pre-Abertura GOLD",
+  "symbol": "GOLD",
+  "description": "Prepara o plano operacional do ouro antes da abertura/primeira decisao do dia.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    {
+      "id": "macro_yields_analyst",
+      "role": "Analista Macro, Dolar e Juros Reais",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "geopolitical_analyst",
+      "role": "Analista de Risco Geopolitico e Demanda Defensiva",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "price_action_analyst",
+      "role": "Analista Price Action GOLD",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "strategy_selector",
+      "role": "Estrategista de Regime e Estrategia",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "risk_officer",
+      "role": "Gestor de Risco Operacional",
+      "skills": [ "analisar-gold" ]
+    },
+    {
+      "id": "chair",
+      "role": "Presidente do Comite GOLD",
+      "skills": [ "analisar-gold" ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "macro_yields",
+      "agentId": "macro_yields_analyst",
+      "dependsOn": [],
+      "prompt": "Analise o contexto macro do GOLD: dolar, yields nominais/reais, Fed, inflacao, emprego, atividade, calendario de alto impacto e impacto provavel no ouro."
+    },
+    {
+      "id": "geopolitica",
+      "agentId": "geopolitical_analyst",
+      "dependsOn": [],
+      "prompt": "Analise risco geopolitico, demanda defensiva, bancos centrais, energia e eventos capazes de mudar premio de risco do ouro."
+    },
+    {
+      "id": "price_action",
+      "agentId": "price_action_analyst",
+      "dependsOn": [],
+      "prompt": "Analise Price Action do GOLD com dados do broker: D1, H4, H1, M15, M5, M1, niveis, VWAP, ATR, spread, gaps, tendencia/range e falhas."
+    },
+    {
+      "id": "regime_estrategia",
+      "agentId": "strategy_selector",
+      "dependsOn": [ "macro_yields", "geopolitica", "price_action" ],
+      "prompt": "Classifique o regime do GOLD e selecione uma estrategia registrada no catalogo ou nenhuma. Explique rejeicoes, gatilhos, invalidacoes e validade."
+    },
+    {
+      "id": "risco",
+      "agentId": "risk_officer",
+      "dependsOn": [ "regime_estrategia" ],
+      "prompt": "Valide risco operacional para GOLD: conta, terminal, simbolo, spread, stops level, volume minimo, posicoes, evento iminente, lote, SL/TP e permissao."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "macro_yields", "geopolitica", "price_action", "regime_estrategia", "risco" ],
+      "prompt": "Consolide o plano pre-abertura do GOLD em final.md e final.json. A decisao deve ser operar, operar_reduzido ou nao_operar, com vies, estrategia, risco, validade, gatilhos e bloqueios."
+    }
+  ]
+}

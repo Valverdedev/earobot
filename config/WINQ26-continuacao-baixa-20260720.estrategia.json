@@ -1,0 +1,149 @@
+{
+  "$schemaVersion": "1.0",
+  "nome": "WINQ26ContinuacaoBaixaContextual",
+  "descricao": "EstrategiaInterpretada para WINQ26 em demo apos invalidacao da tese compradora de abertura. Venda somente em continuacao abaixo da VWAP/EMAs, com M1/M5/M15 alinhados em baixa, spread controlado e bloqueio por exaustao. WDO em baixa e tratado como contradicao: gatilho exige perda de suporte intradiario, nao antecipacao.",
+  "geradoPor": "Codex comite WINQ reanalise 2026-07-20",
+  "geradoEm": "2026-07-20T10:48:00-03:00",
+  "filtros": [
+    {
+      "tipo": "janelaHorario",
+      "inicio": "10:45",
+      "fim": "12:00"
+    },
+    {
+      "tipo": "spreadMaximo",
+      "valorPreco": 10
+    },
+    {
+      "tipo": "atrMinimo",
+      "periodo": 14,
+      "valorPreco": 120
+    },
+    {
+      "tipo": "atrMaximo",
+      "periodo": 14,
+      "valorPreco": 430
+    },
+    {
+      "tipo": "candleMaxAtrMultiplo",
+      "periodo": 14,
+      "multiplo": 2.2
+    },
+    {
+      "tipo": "semClimax",
+      "janelaCandles": 4,
+      "multiploRange": 2.6,
+      "lookbackMedioRange": 20
+    }
+  ],
+  "venda": {
+    "setup": {
+      "todas": [
+        {
+          "op": "<",
+          "a": "ema(9)[0]",
+          "b": "ema(21)[0]"
+        },
+        {
+          "op": "<",
+          "a": "ema(21)[0]",
+          "b": "ema(50)[0]"
+        },
+        {
+          "op": "<",
+          "a": "ema(9,M5)[0]",
+          "b": "ema(21,M5)[0]"
+        },
+        {
+          "op": "<",
+          "a": "ema(21,M5)[0]",
+          "b": "ema(50,M5)[0]"
+        },
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "vwap(14)[0] - 120"
+        },
+        {
+          "op": "entre",
+          "a": "rsi(14)[0]",
+          "min": 24,
+          "max": 52
+        },
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "minimaJanela(09:00,09:30) + 260"
+        }
+      ]
+    },
+    "gatilho": {
+      "todas": [
+        {
+          "op": "<",
+          "a": "tick.bid",
+          "b": "minimaJanela(09:00,09:30) + 40"
+        },
+        {
+          "op": "<",
+          "a": "candle[0].fechamento",
+          "b": "candle[1].minimo"
+        },
+        {
+          "qualquer": [
+            {
+              "padrao": "trendBarBaixa",
+              "candle": 0,
+              "corpoMinimoFracaoRange": 0.5
+            },
+            {
+              "padrao": "fechamentoDirecional",
+              "candle": 0,
+              "lado": "baixa"
+            },
+            {
+              "padrao": "rejeicaoVendedora",
+              "candle": 0,
+              "multiploPavio": 1.35
+            }
+          ]
+        }
+      ]
+    },
+    "stop": {
+      "tipo": "valorOperando",
+      "a": "maximaJanela(10:00,10:45)",
+      "bufferPreco": 40
+    }
+  },
+  "saida": {
+    "venda": {
+      "qualquer": [
+        {
+          "op": "cruzouAcima",
+          "a": "ema(9)",
+          "b": "ema(21)"
+        },
+        {
+          "op": ">",
+          "a": "candle[0].fechamento",
+          "b": "vwap(14)[0] - 40"
+        },
+        {
+          "todas": [
+            {
+              "op": ">=",
+              "a": "posicao.lucroBruto",
+              "b": 0.6
+            },
+            {
+              "padrao": "rejeicaoCompradora",
+              "candle": 0,
+              "multiploPavio": 1.5
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

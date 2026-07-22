@@ -1,0 +1,53 @@
+{
+  "name": "generic-stock-config",
+  "title": "Comite Generico Acoes",
+  "assetClass": "STOCK",
+  "description": "Analisa e prepara configuracao candidata para acoes individuais, com foco em fundamentos de curto prazo, indice, setor, liquidez e Price Action.",
+  "outputSchema": "committee-final-v1",
+  "agents": [
+    { "id": "fundamental_context", "role": "Analista Empresa/Setor", "skills": [] },
+    { "id": "price_action", "role": "Leitor Tecnico", "skills": [] },
+    { "id": "strategy_selector", "role": "Selecionador de Estrategia", "skills": [] },
+    { "id": "risk_officer", "role": "Gestor de Risco", "skills": [] },
+    { "id": "config_builder", "role": "Preparador de Config Candidato", "skills": [] },
+    { "id": "chair", "role": "Presidente do Comite", "skills": [] }
+  ],
+  "tasks": [
+    {
+      "id": "contexto_empresa_setor",
+      "agentId": "fundamental_context",
+      "dependsOn": [],
+      "prompt": "Analise empresa, setor, Ibovespa, dolar, juros, commodities quando relevante, noticias, eventos corporativos, liquidez, leilao, aluguel/short interest quando disponivel e riscos especificos da acao."
+    },
+    {
+      "id": "price_action",
+      "agentId": "price_action",
+      "dependsOn": [],
+      "prompt": "Leia Price Action multi-timeframe da acao. Identifique tendencia, range, suportes, resistencias, gaps, volume, liquidez, falsos rompimentos e invalidacoes."
+    },
+    {
+      "id": "selecao_estrategia",
+      "agentId": "strategy_selector",
+      "dependsOn": [ "contexto_empresa_setor", "price_action" ],
+      "prompt": "Selecione estrategia registrada ou nenhuma. Considere baixa liquidez, gaps, leilao, spread, aluguel, lote e horario do mercado a vista."
+    },
+    {
+      "id": "risco_operacional",
+      "agentId": "risk_officer",
+      "dependsOn": [ "contexto_empresa_setor", "price_action", "selecao_estrategia" ],
+      "prompt": "Defina risco: lote, max posicoes, max trades, cooldown, drawdown, SL/TP, parciais, trailing e bloqueios por evento corporativo ou liquidez."
+    },
+    {
+      "id": "config_candidato",
+      "agentId": "config_builder",
+      "dependsOn": [ "selecao_estrategia", "risco_operacional" ],
+      "prompt": "Prepare especificacao de config candidato preservando campos desconhecidos e operar=false por padrao."
+    },
+    {
+      "id": "decisao_final",
+      "agentId": "chair",
+      "dependsOn": [ "contexto_empresa_setor", "price_action", "selecao_estrategia", "risco_operacional", "config_candidato" ],
+      "prompt": "Consolide decisao final, gates, riscos especificos da acao, configuracao candidata e proxima revisao obrigatoria."
+    }
+  ]
+}

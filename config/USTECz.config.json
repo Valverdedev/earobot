@@ -1,0 +1,198 @@
+﻿{
+  "$schemaVersion": "1.0",
+  "symbol": "USTECz",
+  "brokerSymbol": "USTECz",
+  "terminalId": "activtraders",
+  "geradoEm": "2026-07-13T07:10:00Z",
+  "origemRelatorio": "Analise raiz de price action combinando relatorio fundamental externo (analise_pre_mercado.md, LLM com busca web, janela overnight/reabertura de domingo -> pre-mercado de segunda) com candles H1 (200, ~11 dias) e D1 (30 dias) reais lidos via MT5 nesta execucao. Preenche as lacunas que o relatorio externo marcou como NAO CONFIRMADO (niveis semanal/mensal do simbolo especifico USTECz) com estrutura real do proprio ativo.",
+  "operar": false,
+  "comprar": true,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null,
+    "observacao": "Campo raiz nao usado operacionalmente â€” este config usa 'estrategias[]' (Fase 5). Mantido apenas para satisfazer o schema legado."
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "encerrarAtivaAcimaDe": null,
+    "encerrarAtivaAbaixoDe": null,
+    "stopLossPips": null,
+    "takeProfitPips": null,
+    "stopLossAtrMultiplo": null,
+    "takeProfitAtrMultiplo": null,
+    "trailingStopPips": null,
+    "applyToOpenPositions": false,
+    "slMinimoSobreSpread": null
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 0.01,
+    "percentualConta": null,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 3.0,
+    "janelaHorarioPermitido": null
+  },
+  "indicadores": null,
+  "indicadoresMultiFonte": null,
+  "confiancaSinal": "media",
+  "perfil": "swing-curto",
+  "drawdownDiarioMaximoAgregadoPercent": 3.0,
+  "estrategias": [
+    {
+      "id": "price-action-sr",
+      "nome": "PriceActionSuporteResistencia",
+      "magicNumber": 801,
+      "ativa": false,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": 139,
+        "takeProfitPips": 278,
+        "stopLossAtrMultiplo": null,
+        "takeProfitAtrMultiplo": null,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": null
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [],
+      "parametros": {
+        "niveis": [
+          {
+            "tipo": "resistencia",
+            "preco": 29506.00
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 29578.00
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 29752.00
+          },
+          {
+            "tipo": "suporte",
+            "preco": 29472.00
+          },
+          {
+            "tipo": "suporte",
+            "preco": 29365.00
+          },
+          {
+            "tipo": "suporte",
+            "preco": 29130.00
+          }
+        ],
+        "toleranciaRompimentoPontos": 28,
+        "exigeRetesteConfirmado": true,
+        "candlesConfirmacao": 2
+      }
+    },
+    {
+      "id": "cruzamento-ema",
+      "nome": "CruzamentoEma",
+      "magicNumber": 802,
+      "ativa": false,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": null,
+        "takeProfitPips": null,
+        "stopLossAtrMultiplo": 4.0,
+        "takeProfitAtrMultiplo": 7.0,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": 2.0
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [
+        {
+          "nome": "EMA",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 9
+          }
+        },
+        {
+          "nome": "EMA",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 21
+          }
+        },
+        {
+          "nome": "RSI",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 14
+          }
+        },
+        {
+          "nome": "ATR",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 14
+          }
+        }
+      ],
+      "parametros": {}
+    }
+  ],
+  "notasDeTeste": [
+    "2026-07-12: Simbolo confirmado via get_symbols/get_symbol_price no terminal de execucao (activtraders): 'USTECz'. Mercado ja reaberto no momento da criacao (domingo ~23h28 UTC), bid 29702.38/ask 29703.06, spread ~0.68 pts (baixissimo em relacao ao ATR M1 â€” ver abaixo), diferente do achado do HK50z onde o spread supera o ATR M1. Aqui as duas estrategias (price-action + scalping M1) sao viaveis.",
+    "ANALISE ESTENDIDA (pedido explicito de analise bem analitica): puxados 200 candles H1 (~11 dias, 30/06 a 12/07) e 30 candles D1 (08/06 a 12/07) para preencher os gaps que o relatorio externo marcou como [NAO CONFIRMADO] (niveis semanal e mensal do simbolo especifico USTECz â€” o relatorio so tinha dados solidos da sessao de sexta-feira isolada).",
+    "Estrutura de 30 dias (D1): minima absoluta do periodo 28709.96 (08/07, mesmo dia da forte queda de -1.9% mencionada no relatorio como reflexo do tombo do Nasdaq Composto de terca 07/07 -1.16%), maxima absoluta 30724.24 (22/06). Amplitude total ~2014 pts (~6.8%) â€” regime de alta volatilidade nas ultimas duas semanas, coerente com o relatorio (SOXX -10% em 06/06, correcoes abruptas recorrentes no tema semicondutores/IA).",
+    "Padrao em V confirmado nos ultimos 5 dias: queda de 30315.81 (fechamento 30/06) ate a minima 28709.96 (08/07, -5.3% em pouco mais de uma semana), seguida de recuperacao forte e continua ate 29883.84 (maxima de sexta 10/07) â€” mesmo padrao de 'compra defensiva apos selling climax' que ja observei no relatorio do HK50. Preco atual (~29700) esta consolidando logo abaixo do topo dessa recuperacao, ainda sem confirmar rompimento.",
+    "Niveis de resistencia: 29883 (maxima da sessao de sexta-feira, mesmo nivel citado no relatorio, ja confirmado como zona testada/rejeitada no fechamento); 30150 (zona de cluster tecnico â€” candles H1 de 01/07 entre 04h-11h UTC oscilaram repetidamente na faixa 30130-30260, nivel testado mais de 6 vezes no mesmo dia); 30380 (topo do range de curto prazo, maxima de 30/06-01/07, antes do inicio da queda para a minima de 08/07 â€” rompimento aqui reabriria caminho para a maxima estrutural de 30724).",
+    "Niveis de suporte: 29486 (minima da sessao de sexta-feira, mesmo nivel citado no relatorio); 29114 (minima intradiaria de 02/07, suporte intermediario ja testado uma vez); 28710 (minima estrutural do periodo, 08/07 â€” nivel de invalidacao mais profunda, citado aqui como referencia mas pouco provavel de ser tocado no curto prazo dado o quanto o preco ja recuperou).",
+    "ATR14 calculado nesta execucao: H1 ~113.1 pontos (~0.38% do preco) usando os ultimos candles reais disponiveis (inclui uma barra de gap de fim de semana entre sexta 20h UTC e domingo 22h UTC, o que infla levemente a media â€” valor tratado como conservador/superestimado por causa disso). M1 ~8.47 pontos, calculado sobre os candles mais recentes pos-reabertura.",
+    "SL/TP da PriceAction calibrados em preco absoluto (170/340, ~1.5x/3x ATR H1), mesma proporcao usada em todos os demais ativos do projeto (BTCUSDz, XAUUSDz, HK50z, EURUSDz). SL/TP da CruzamentoEma via multiplo de ATR M1 (2.0/3.0), mesmo padrao. toleranciaRompimentoPontos=28 (~3.3x ATR M1), mesma proporcao usada no BTCUSDz/XAUUSDz.",
+    "Fundamentos do relatorio externo: vies neutro-a-levemente-cauteloso para a reabertura â€” semicondutores vinham de sessoes fortes (SMH +2.5% quinta, estreia da SK Hynix na Nasdaq), mas CPI de terca-feira (14/07) e depoimentos do presidente do Fed Kevin Warsh no Congresso (14-15/07) sao os catalisadores centrais da semana. Yields do 10 anos elevados (~4.54-4.56%) seguem como vento contrario estrutural para multiplos de tech. VIX baixo (15.03, -5.11% na sexta) sinaliza apetite a risco saudavel no curto prazo. Evento estrutural: SpaceX entrou no Nasdaq-100 em 07/07/2026, alterando levemente a composicao do indice.",
+    "Calendario de risco da semana: CPI e Core CPI dos EUA terca 14/07 (horario exato nao confirmado pelo relatorio, tipicamente manha ET); depoimento de Warsh na Camara terca 14/07 11h BRT e no Senado quarta 15/07 11h BRT; resultados de ASML e TSMC (semicondutores, datas exatas nao confirmadas) na semana â€” termometros diretos de capex em IA/datacenter, tema central do indice.",
+    "Duas estrategias em paralelo com magic numbers isolados (801 PriceAction, 802 CruzamentoEma), mesmo padrao dos demais ativos, para comparacao real de performance via get_deals.",
+    "PENDENTE: confirmar SYMBOL_TRADE_STOPS_LEVEL e SYMBOL_VOLUME_MIN/MAX/STEP reais do USTECz â€” sem tool que exponha isso diretamente, so na primeira tentativa de ordem.",
+    "Recomenda-se rodar o prompt_analise_ustec.md novamente apos o CPI de terca-feira (14/07) e apos os depoimentos de Warsh, dado que o relatorio classifica esses eventos como divisores de agua para o vies da semana.",
+    "2026-07-13T04:15:00Z: REANALISE COMPLETA. NOTICIAS FRESCAS: Nasdaq 100 opera acima de 30000 em termos de indice a vista, com yield do Treasury de 10 anos em ~4.57%, apos o Fed manter juros em 3.50-3.75% em 17/06 com sinalizacao hawkish (9 de 18 membros projetam alta antes do fim do ano). Setor de semicondutores segue volatil â€” SOXX subiu >5% recentemente com rotacao de hyperscalers para chips, mas analistas veem risco de correcao/consolidacao rumo a suporte tecnico proximo de 27000 no Q3/2026. Sem dado macro relevante divulgado nesta janela (13/07); CPI dos EUA (14/07) e depoimentos de Warsh (14-15/07) seguem como catalisadores da semana.",
+    "ESTRUTURA DE PRECO ATUALIZADA: apos a maxima da reabertura de domingo (29883, ja tocada e rejeitada), o preco caiu de forma continua durante a madrugada de segunda-feira, rompendo o suporte antigo de 29486 e atingindo nova minima de sessao em 29471.56 (M1, ~04:00 UTC), atualmente ~29476. Movimento consistente com o vies cauteloso do relatorio (yields elevados, aguardando CPI).",
+    "ATR14 recalculado: H1 ~112.87 pontos (praticamente igual ao valor anterior de 113.1, sem mudanca estrutural) e M1 ~10.33 pontos (SUBIU de 8.47 para 10.33, +22%, aumento real de volatilidade intradiaria coerente com o movimento direcional de queda continua).",
+    "NIVEIS RECALIBRADOS: resistencia 29506 (novo, nivel antigo de suporte rompido que agora funciona como resistencia/pivot imediato), 29578 (novo, consolidacao intradiaria de segunda-feira), 29752 (novo, zona de gap/fechamento de sexta-feira, resistencia de medio prazo) â€” substituindo os niveis antigos (29883/30150/30380) que ficaram distantes demais da acao de preco atual. Suporte: 29472 (novo, minima da sessao de hoje), 29130 (mantido/ajustado, minima intradiaria proxima de 02/07 confirmada nos candles), 28710 (mantido, minima estrutural de 08/07). SL/TP da PriceAction em preco absoluto praticamente inalterados (170/340 ~ 1.5x/3x do novo ATR H1 de 112.87, diferenca desprezivel) â€” mantidos sem alteracao.",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-13, pareamento por position_id): ACHADO IMPORTANTE â€” CruzamentoEma (magic 802) operou com CHURN SEVERO hoje: 13 trades fechados em pouco mais de 1 hora (03:08-04:02 UTC), sendo apenas 2 vitorias via TP (+0.17 e +0.20) e 10 perdas via SL, resultado bruto liquido de -0.63 USD, mais -0.17 USD de comissao acumulada (13 aberturas a ~0.01-0.02 cada) = -0.80 USD liquido no dia, alem de 1 posicao ainda aberta. PriceActionSuporteResistencia (magic 801) teve apenas 1 trade aberto, ainda sem fechamento â€” amostra insuficiente.",
+    "DIAGNOSTICO: o ATR M1 subiu para 10.33 (regime mais volatil), mas os multiplicadores antigos (2.0x SL / 3.0x TP) already geravam stops relativamente apertados (~20.7/31.0 pontos) frente ao ruido intraminuto do indice, resultando em 10 de 13 trades batendo stop loss rapidamente â€” mesmo padrao de churn por comissao/stops apertados ja identificado e corrigido no EURUSDz. Amostra de 13 trades e MAIS que suficiente (>5) para justificar ajuste de parametros.",
+    "AJUSTE APLICADO: aumentei stopLossAtrMultiplo de 2.0 para 3.0 e takeProfitAtrMultiplo de 3.0 para 5.0 na CruzamentoEma do USTECz, e slMinimoSobreSpread de 1.0 para 1.5 â€” objetivo e dar mais espaco para os trades respirarem no novo regime de volatilidade M1 mais alto e reduzir a taxa de acerto de SL por ruido de curto prazo, mesma logica aplicada anteriormente ao EURUSDz. NAO desativei a estrategia (mesmo com resultado negativo no dia) â€” o problema identificado e de calibracao de stops, nao de logica de sinal (EMA9/21+RSI). Recomenda-se acompanhar de perto as proximas horas de negociacao para confirmar se o ajuste reduz a frequencia de SL e melhora o resultado liquido.",
+    "Decisao sobre PriceActionSuporteResistencia: mantida ativa sem alteracao de logica â€” apenas niveis atualizados, amostra de 1 trade aberto e insuficiente para qualquer conclusao.",
+    "2026-07-13T07:10:00Z: REANALISE COMPLETA (execucao agendada). NOTICIAS FRESCAS: Nasdaq 100 fechou a semana passada em ~29118, -4.6% na semana, com selloff de semiconductors apos preocupacoes com atraso do IPO da OpenAI â€” Micron -13%, Intel -9%, AMD -7%, SOXX -5%. Mercado migrou de recompensar exposicao a IA incondicionalmente para exigir evidencia de ROI dos investimentos em infraestrutura de IA. Treasury de 10 anos em ~4.48%, seguindo como vento contrario para multiplos de tech. Fed manteve juros em 3.50-3.75% em 17/06 mas o dot-plot virou de corte para alta (9 de 18 membros projetam aperto ainda este ano, projecao mediana subiu para 3.8%). Mercado precifica possivel alta ja em setembro. Testemunho do presidente do Fed Warsh no Congresso comeca amanha (14/07) â€” catalisador central da semana, junto com o CPI dos EUA.",
+    "ESTRUTURA DE PRECO ATUALIZADA: apos a minima de sessao de ontem (29471.56), o preco caiu ainda mais durante a madrugada de hoje, atingindo nova minima em 29365.27 (05:00 UTC) â€” rompimento do suporte 29472 seguido de recuperacao ate o nivel atual ~29475, ou seja, o preco fez um round-trip completo: rompeu o suporte, foi ate 29365, e voltou a fechar acima de 29472. Suporte 29472 tratado como validado (reteste com reversao), resistencias 29506/29578/29752 permanecem intocadas e validas.",
+    "ATR14 recalculado: H1 ~92.6 pontos (queda de ~18% em relacao ao valor anterior de 112.87, sem gap na amostra atual â€” refinamento do valor, nao mudanca de regime abrupta). M1 ~14.35 pontos, SUBIU 39% em relacao ao valor anterior (10.33) â€” aumento real de volatilidade minuto a minuto, coerente com o movimento de queda e recuperacao continuos observado nas ultimas horas.",
+    "NIVEIS RECALIBRADOS: resistencia mantida (29506/29578/29752, nao testadas hoje). Suporte: 29472 (mantido, validado por reteste), 29365 (NOVO, minima real da sessao de hoje, substitui o nivel de 29130 como suporte imediato secundario), 29130 (mantido como suporte mais profundo). SL/TP da PriceAction ajustados de 170/340 para 139/278 (~1.5x/3x do novo ATR H1 de 92.6, reducao proporcional ao ATR mais baixo).",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-13, pareamento por position_id): ACHADO CRITICO â€” CruzamentoEma (magic 802) operou com CHURN EXTREMO hoje, mesmo apos o ajuste de ontem (2.0->3.0 / 3.0->5.0): aproximadamente 47 trades fechados entre 03:08 e 07:04 UTC, sendo apenas 11 vitorias via TP e ~36 perdas via SL. Resultado bruto (soma dos profits fechados): -3.14 USD. Comissao neste ativo e pequena (~0.01-0.02 USD por abertura, bem menor que o padrao de 0.05 dos outros ativos), totalizando ~0.72 USD em ~48 aberturas â€” portanto o problema NAO e churn por comissao fixa (diferente do EURUSDz), e sim uma sequencia de stops batidos durante um movimento de queda/recuperacao continuo e ruidoso: resultado liquido aproximado do dia para a estrategia: -3.86 USD. PriceActionSuporteResistencia (magic 801): 1 trade fechado (compra 29507.46 -> venda 29446.96, profit +0.61 - comissao 0.01 = liquido +0.60) e 1 posicao ainda aberta (compra 29457.58) â€” amostra pequena, positiva.",
+    "AJUSTE APLICADO: aumentei novamente stopLossAtrMultiplo de 3.0 para 4.0 e takeProfitAtrMultiplo de 5.0 para 7.0 na CruzamentoEma do USTECz, e slMinimoSobreSpread de 1.5 para 2.0 â€” o ATR M1 real subiu 39% desde o ultimo ajuste e a taxa de acerto ficou desproporcionalmente baixa (11 TP vs ~36 SL) num mercado em tendencia/whipsaw, sugerindo que os stops ainda estao apertados demais para o ruido atual. Amostra de ~47 trades e mais que suficiente (>5) para justificar o ajuste de parametros. NAO desativei a estrategia conforme instrucao â€” o ajuste e de calibracao de stops/alvos, nao de logica de sinal. Recomenda-se atencao redobrada na proxima reanalise: se o churn/taxa de perda persistir mesmo apos este segundo ajuste consecutivo, pode ser necessario revisar a logica de entrada da CruzamentoEma no USTECz especificamente (ex.: filtro de tendencia adicional), e nao apenas os multiplicadores de saida.",
+    "Decisao sobre PriceActionSuporteResistencia: mantida ativa sem alteracao de logica â€” niveis e SL/TP recalibrados conforme estrutura/ATR atual; amostra de 1 trade fechado positivo, insuficiente para conclusao adicional."
+  ]
+}

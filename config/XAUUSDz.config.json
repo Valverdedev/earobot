@@ -1,0 +1,193 @@
+﻿{
+  "$schemaVersion": "1.0",
+  "symbol": "XAUUSDz",
+  "brokerSymbol": "XAUUSDz",
+  "terminalId": "activtraders",
+  "geradoEm": "2026-07-13T07:06:00Z",
+  "origemRelatorio": "Analise raiz de price action combinando relatorio fundamental externo (analise_asia_2026-07-12.md, gerado via LLM com busca web) com candles H1/M1 reais lidos via MT5 nesta execucao. Mesma conta do BTCUSDz/ETHBTCz (real, ~$487-499, alavancagem 2000x). Simbolo confirmado na corretora: 'XAUUSDz' (nao 'GOLD', que nao existe na lista de simbolos deste terminal).",
+  "operar": false,
+  "comprar": true,
+  "vender": true,
+  "entrada": {
+    "comprarAcimaDe": null,
+    "comprarAbaixoDe": null,
+    "venderAcimaDe": null,
+    "venderAbaixoDe": null,
+    "observacao": "Campo raiz nao usado operacionalmente â€” este config usa 'estrategias[]' (Fase 5). Mantido apenas para satisfazer o schema legado."
+  },
+  "saida": {
+    "unidadeDistancia": "precoAbsoluto",
+    "encerrarAtivaAcimaDe": null,
+    "encerrarAtivaAbaixoDe": null,
+    "stopLossPips": null,
+    "takeProfitPips": null,
+    "stopLossAtrMultiplo": null,
+    "takeProfitAtrMultiplo": null,
+    "trailingStopPips": null,
+    "applyToOpenPositions": false,
+    "slMinimoSobreSpread": null
+  },
+  "gestaoDeRisco": {
+    "modoLote": "loteFixo",
+    "loteFixo": 0.01,
+    "percentualConta": null,
+    "maxOperacoesSimultaneas": 1,
+    "drawdownDiarioMaximoPercent": 3.0,
+    "janelaHorarioPermitido": null
+  },
+  "indicadores": null,
+  "indicadoresMultiFonte": null,
+  "confiancaSinal": "media",
+  "perfil": "swing-curto",
+  "drawdownDiarioMaximoAgregadoPercent": 3.0,
+  "estrategias": [
+    {
+      "id": "price-action-sr",
+      "nome": "PriceActionSuporteResistencia",
+      "magicNumber": 501,
+      "ativa": false,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": 27,
+        "takeProfitPips": 53,
+        "stopLossAtrMultiplo": null,
+        "takeProfitAtrMultiplo": null,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": null
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [],
+      "parametros": {
+        "niveis": [
+          {
+            "tipo": "resistencia",
+            "preco": 4063.00
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 4085.00
+          },
+          {
+            "tipo": "resistencia",
+            "preco": 4099.00
+          },
+          {
+            "tipo": "suporte",
+            "preco": 4044.00
+          },
+          {
+            "tipo": "suporte",
+            "preco": 4022.00
+          }
+        ],
+        "toleranciaRompimentoPontos": 5,
+        "exigeRetesteConfirmado": true,
+        "candlesConfirmacao": 2
+      }
+    },
+    {
+      "id": "cruzamento-ema",
+      "nome": "CruzamentoEma",
+      "magicNumber": 502,
+      "ativa": false,
+      "comprar": true,
+      "vender": true,
+      "entrada": null,
+      "saida": {
+        "unidadeDistancia": "precoAbsoluto",
+        "encerrarAtivaAcimaDe": null,
+        "encerrarAtivaAbaixoDe": null,
+        "stopLossPips": null,
+        "takeProfitPips": null,
+        "stopLossAtrMultiplo": 2.0,
+        "takeProfitAtrMultiplo": 3.0,
+        "trailingStopPips": null,
+        "applyToOpenPositions": false,
+        "slMinimoSobreSpread": 1.0
+      },
+      "gestaoDeRisco": {
+        "modoLote": "loteFixo",
+        "loteFixo": 0.01,
+        "percentualConta": null,
+        "maxOperacoesSimultaneas": 1,
+        "drawdownDiarioMaximoPercent": 1.5,
+        "janelaHorarioPermitido": null
+      },
+      "janelaHorarioPermitido": null,
+      "indicadores": [
+        {
+          "nome": "EMA",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 9
+          }
+        },
+        {
+          "nome": "EMA",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 21
+          }
+        },
+        {
+          "nome": "RSI",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 14
+          }
+        },
+        {
+          "nome": "ATR",
+          "timeframe": "M1",
+          "parametros": {
+            "periodo": 14
+          }
+        }
+      ],
+      "parametros": {}
+    }
+  ],
+  "notasDeTeste": [
+    "2026-07-12: CONTA REAL â€” mesma conta do BTCUSDz/ETHBTCz (balance ~487-499 USD, leverage=2000, account_type=real). Lote 0.01 assumido como minimo ate confirmar SYMBOL_VOLUME_MIN real.",
+    "Simbolo confirmado na lista de simbolos da corretora via get_symbols: 'XAUUSDz' (o nome 'GOLD' usado nas notas de pesquisa anteriores nao existe neste terminal).",
+    "Mercado fechado no momento da criacao deste config (sabado/domingo) â€” ultimo tick real disponivel via MT5: 2026-07-10 20:57 UTC (sexta), bid 4119.858/ask 4119.908, spread ~0.05. Reabertura prevista domingo a noite (sessao Sydney/Asia).",
+    "ATR14 calculado a partir dos ultimos candles reais disponiveis (fechamento de sexta): H1 ~14.86 pontos (~0.36% do preco), M1 ~1.52 pontos. SL/TP da PriceAction calibrados em preco absoluto (22/44, ~1.5x/3x ATR H1) seguindo a mesma proporcao usada no BTCUSDz. SL/TP da CruzamentoEma via multiplo de ATR M1 (2.0/3.0), mesmo padrao dos demais ativos.",
+    "Niveis de PriceActionSuporteResistencia combinam o relatorio fundamental externo (analise_asia_2026-07-12.md, LLM com busca web, evento geopolitico Ira-EUA como driver dominante da proxima sessao) com validacao direta nos candles H1 reais: resistencia 4150 e 4200 (relatorio) coerentes com topos locais de 07/07 (4180.688) e da faixa semanal (4202.03); suporte 4080 e 4040 (relatorio) coerentes com fundos locais de 10/07 14h (4072.976) e da faixa semanal/mensal (4021.695-4022.20).",
+    "Relatorio externo classifica confianca do sinal como 'media' â€” pano de fundo geopolitico fresco (ataques dos EUA ao Ira no fim de semana, disputa sobre o Estreito de Ormuz) e evento binario de baixa previsibilidade que pode gerar gap na reabertura de domingo, sobrepondo o viÃ©s tecnico de curto prazo (levemente vendedor no fechamento de sexta). confiancaSinal setado como 'media' e perfil como 'swing-curto' (nao scalper puro) refletindo essa incerteza.",
+    "CPI de junho/EUA sai em 14/07 as ~09h30 BRT â€” proximo catalisador agendado relevante, cai fora da janela imediata mas dentro de 72h. FOMC em 29/07.",
+    "Duas estrategias em paralelo com magic numbers isolados (501 PriceAction, 502 CruzamentoEma), mesmo padrao dos demais ativos, para comparacao real de performance via get_deals.",
+    "PENDENTE: confirmar SYMBOL_TRADE_STOPS_LEVEL e SYMBOL_VOLUME_MIN/MAX/STEP reais do XAUUSDz â€” sem tool que exponha isso diretamente, so na primeira tentativa de ordem. Recomenda-se acompanhar de perto o primeiro preenchimento apos a reabertura de domingo, dado o contexto de volatilidade elevada por risco geopolitico.",
+    "Recomenda-se rodar o prompt_analise_gold.md novamente logo apos a abertura de domingo a noite para capturar o primeiro movimento real de preco e revalidar os niveis antes de confiar neles por muito tempo, conforme o proprio relatorio externo recomendou.",
+    "2026-07-12T23:45:00Z: RECALIBRACAO â€” confirmado gap de queda forte na reabertura de domingo: fechamento de sexta 4119.858 (20h UTC) -> reabertura domingo 22h UTC abrindo em 4098.686 e caindo ate minima de sessao 4068.517 (23h UTC), atualmente ~4077.85. O preco furou o suporte antigo (4080) durante a madrugada. Nova faixa pos-gap: maxima 4099.378 (22h UTC, pico logo apos reabertura) / minima 4068.517 (23h UTC) â€” amplitude ~30.9 pontos (~0.75%) em ~1h30 de negociacao.",
+    "ATR14 recalculado nesta execucao: H1 ~17.35 pontos (inflado pela barra que engloba o gap de fim de semana, tratar como superestimado) e M1 ~1.65 pontos (amostra livre de gap, mais confiavel) â€” ambos coerentes com o calculo anterior (14.86/1.52), sem mudanca estrutural de regime de volatilidade apesar do gap direcional.",
+    "Niveis RECALIBRADOS com base na nova estrutura pos-gap, substituindo os niveis antigos (4150/4200 resistencia, 4080/4040 suporte) que ficaram desatualizados: resistencia 4099 (pico da reabertura, imediata), 4120 (zona de fechamento/estrutura de sexta-feira, secundaria), 4150 (mantida do calibre anterior, mais distante); suporte 4068 (minima da sessao pos-reabertura, imediato), 4040 (mantido), 4022 (minima real da semana em 08/07 14h-15h UTC, suporte mais profundo). SL/TP da PriceAction ajustados de 22/44 para 26/52 (~1.5x/3x do novo ATR H1) para acompanhar o regime de volatilidade um pouco mais alto observado no gap.",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-12): CruzamentoEma (magic 502) teve excelente desempenho no dia â€” 10 trades fechados, 7 vitorias/3 perdas, resultado liquido +27.99 USD (mais 1 posicao aberta agora, +0.75 USD flutuante). PriceActionSuporteResistencia (magic 501) teve apenas 2 trades, ambos com prejuizo, liquido -14.32 USD â€” o segundo trade (aberto 22:37:02 a 4084.291, fechado 23:04:27 a 4070.638, -13.65 USD) fechou SEM tag de SL/TP no comentario (diferente dos fechamentos por SL/TP da CruzamentoEma, que sempre aparecem como '[sl ...]'/'[tp ...]'), sugerindo que foi encerrado pela propria logica de invalidacao da estrategia (reversao de sinal) e nao por SL â€” vale monitorar se isso se repete, pode indicar que o SL de 22 pontos era largo demais e a estrategia sai antes por outro motivo. Resultado agregado do dia no XAUUSDz: +13.67 USD realizado + 0.75 USD flutuante.",
+    "Decisao: NAO desativei a PriceActionSuporteResistencia apesar do resultado negativo â€” amostra de apenas 2 trades e insuficiente para concluir que a estrategia e ruim neste ativo (mesmo erro que eu cometeria se agisse cedo demais, like ja documentado no caso do ETHBTCz). Ajustei apenas os niveis e o SL/TP para refletir a estrutura real pos-gap; recomenda-se reavaliar com uma amostra maior (5+ trades) antes de qualquer decisao de desativar.",
+    "2026-07-13T04:10:00Z: REANALISE COMPLETA. NOTICIAS FRESCAS: consenso de mercado (FXStreet/LiteFinance/FXEmpire) aponta XAU/USD consolidando entre ~4060-4157 nesta janela; probabilidade de 74.9% (CME) do Fed manter juros em 3.50-3.75% na reuniao de julho reduz upside de curto prazo; OCBC ve vies baixista estrutural para o resto de 2026 por yields em alta e dolar mais forte, embora tendencia de longo prazo permaneca de alta. Conflito EUA-Ira segue como driver de fundo (mercado aguarda sinalizacao de negociacoes no Catar, sem encontro direto confirmado). CPI dos EUA de terca 14/07 e FOMC 29/07 seguem como catalisadores agendados, ainda nao ocorridos nesta execucao.",
+    "ESTRUTURA DE PRECO ATUALIZADA: apos o gap de queda de domingo (ja documentado), o preco rompeu o suporte de 4068 durante a madrugada de segunda-feira, atingindo nova minima de sessao em 4052.967 (03:00 UTC), atualmente operando ~4058. Maxima local pos-gap ficou em 4084.991 (23:00 UTC de domingo), funcionando agora como resistencia imediata. Sem reteste de alta relevante â€” vies de curto prazo permanece vendedor.",
+    "ATR14 recalculado: H1 ~18.82 pontos (ainda contem a barra que engloba o gap de reabertura de domingo â€” tratado como parcialmente superestimado) e M1 ~1.33 pontos (CAIU de 1.65 para 1.33, mercado de segunda-feira mais calmo minuto a minuto apesar da tendencia de queda). Sem mudanca estrutural de regime, apenas leve alta do ATR H1 coerente com a continuacao do movimento direcional.",
+    "NIVEIS RECALIBRADOS: resistencia 4085 (novo nivel imediato, topo da recuperacao pos-gap de domingo, substitui indiretamente a necessidade de reteste do nivel antigo), 4099 (mantido, pico da reabertura), 4120 (mantido, zona de fechamento de sexta). Suporte: 4053 (novo, minima da sessao de segunda-feira, rompeu o suporte anterior de 4068), 4040 (mantido), 4022 (mantido, suporte estrutural mais profundo). SL/TP da PriceAction ajustados de 26/52 para 28/56 (~1.5x/3x do novo ATR H1), acompanhando a leve alta de volatilidade.",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-13, pareamento por position_id): apenas 1 deal fechado hoje no XAUUSDz, com magic number 0 e comentario vazio (posicao residual/manual nao atribuivel as estrategias 501/502 deste config, profit -6.0 USD). NENHUM trade novo das estrategias PriceActionSuporteResistencia (501) ou CruzamentoEma (502) foi registrado ainda na sessao de hoje â€” amostra zero, portanto SEM base para qualquer ajuste de parametros de risco/ATR das estrategias nesta execucao alem da atualizacao de niveis/SL-TP acima.",
+    "Decisao: mantidas ambas as estrategias ativas sem alteracao de logica ou multiplos de ATR da CruzamentoEma (2.0/3.0) â€” nenhum trade novo hoje para avaliar. Apenas niveis e SL/TP em preco absoluto da PriceAction foram recalibrados para refletir a nova minima de sessao.",
+    "2026-07-13T07:06:00Z: REANALISE COMPLETA (execucao agendada 04h BRT / 07h UTC). NOTICIAS FRESCAS: FXStreet/LiteFinance confirmam XAU/USD ainda em faixa de consolidacao ampla 4060-4157, mas o preco ja rompeu o piso dessa faixa nesta madrugada. CME aponta 74.9% de probabilidade do Fed manter juros em 3.50-3.75% na reuniao de julho, limitando upside de curto prazo; OCBC mantem vies estrutural baixista para o resto de 2026 (yields em alta, dolar mais forte). Mercado segue aguardando sinalizacao de conversas EUA-Ira no Catar, sem encontro direto confirmado â€” risco geopolitico permanece como driver de fundo sem novo catalisador nas ultimas 24h. CPI dos EUA de terca 14/07 (amanha) e FOMC 29/07 seguem como proximos catalisadores agendados.",
+    "ESTRUTURA DE PRECO ATUALIZADA: continuacao da tendencia de baixa iniciada no gap de domingo. Apos a minima de 4052.967 (03:00 UTC) documentada na reanalise anterior, o preco rompeu ainda mais fundo, atingindo nova minima de sessao em 4043.807 (06:00 UTC), e agora recupera parcialmente para ~4052.7 (bid atual). O nivel de suporte 4053 calibrado ha pouco foi rompido e re-testado por baixo â€” vies de curtissimo prazo segue vendedor, com tentativa de recuperacao tecnica em curso.",
+    "ATR14 RECALCULADO: H1 ~17.76 pontos (ainda parcialmente inflado pela barra de gap de domingo, mas em linha com o valor anterior de 18.82 â€” SEM mudanca estrutural de regime em H1). M1 ~2.44 pontos, quase o dobro do valor anterior (1.33) â€” indica aumento real de volatilidade minuto a minuto nesta madrugada, coerente com o movimento direcional mais amplo e o rompimento do suporte.",
+    "NIVEIS RECALIBRADOS (rompimento de suporte confirmado): resistencia 4063 (novo, topo da recuperacao tecnica desta manha, imediata), 4085 (mantida), 4099 (mantida). Suporte: 4044 (novo, minima de sessao 06:00 UTC, substitui o nivel de 4053 que foi rompido), 4022 (mantido, suporte estrutural mais profundo da semana). Removido o nivel intermediario de 4040 por redundancia com o novo suporte de 4044, mantendo o minimo de 2 suportes exigido. SL/TP da PriceAction ajustados de 28/56 para 27/53 (~1.5x/3x do ATR H1 atual de 17.76), variacao pequena e dentro do mesmo regime.",
+    "COMPARACAO COM LOG DE ORDENS (get_deals, 2026-07-13, pareamento por position_id): PriceActionSuporteResistencia (magic 501) executou 2 trades fechados hoje, ambos vencedores â€” position_id 118293005 (compra 4072.101, fechada 4063.094, profit +9.01 - comissao 0.11 = liquido +8.90) e position_id 118294870 (compra 4063.197, fechada 4052.583, profit +10.62 - comissao 0.11 = liquido +10.51). Resultado liquido da estrategia hoje: +19.41 USD. CruzamentoEma (magic 502): ZERO trades hoje â€” amostra nula, sem base para qualquer ajuste dos multiplicadores de ATR M1 (2.0/3.0) apesar do M1 ATR ter dobrado; mantidos inalterados. Um deal residual (magic 0, position_id 118263181, profit -6.0) nao pertence a nenhuma das duas estrategias e foi ignorado no calculo.",
+    "Decisao: mantidas ambas as estrategias ativas. PriceActionSR com bom desempenho (2/2 vencedores, amostra ainda pequena) â€” niveis e SL/TP recalibrados para acompanhar o rompimento do suporte. CruzamentoEma sem trades para avaliar, multiplos de ATR mantidos; vale observar de perto na proxima reanalise dado o salto do ATR M1 (1.33 -> 2.44), que pode exigir SL/TP mais largos se a estrategia comecar a operar e sofrer stops prematuros."
+  ]
+}
