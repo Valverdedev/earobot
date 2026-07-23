@@ -74,11 +74,10 @@ public class BacktestServiceIntegrationTests
         {
             int hour = 10 + (i / 60);
             int minute = i % 60;
-            bigMockCandles.AppendLine($@"{{ ""Tempo"": ""2026-07-01T{hour:D2}:{minute:D2}:00Z"", ""Abertura"": {120000 + i}, ""Maximo"": {120010 + i}, ""Minimo"": {119990 + i}, ""Fechamento"": {120005 + i}, ""Volume"": 100 }},");
+            var separador = i == 199 ? string.Empty : ",";
+            bigMockCandles.AppendLine($@"{{ ""Tempo"": ""2026-07-01T{hour:D2}:{minute:D2}:00Z"", ""Abertura"": {120000 + i}, ""Maximo"": {120010 + i}, ""Minimo"": {119990 + i}, ""Fechamento"": {120005 + i}, ""Volume"": 100 }}{separador}");
         }
-        // Ajustar o último para tirar a vírgula
-        bigMockCandles.Length -= 3;
-        bigMockCandles.AppendLine("\n]");
+        bigMockCandles.AppendLine("]");
         
         await File.WriteAllTextAsync(tempFile, bigMockCandles.ToString());
 

@@ -27,7 +27,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>appsettings.json</Link>
     </Content>
-    <Content Include="..\Financial.Robot.Worker\appsettings.Development.json">
+    <Content Include="..\Financial.Robot.Worker\appsettings.Development.json" Condition="Exists('..\Financial.Robot.Worker\appsettings.Development.json')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>appsettings.Development.json</Link>
     </Content>

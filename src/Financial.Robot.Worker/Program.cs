@@ -119,6 +119,9 @@ try
     builder.Services.Configure<List<Financial.Robot.Application.Configuracoes.ConfiguracaoAlvoGlobalPosicoesAbertas>>(
         builder.Configuration.GetSection("AlvoGlobalPosicoesAbertas"));
 
+    builder.Services.Configure<Financial.Robot.Worker.Automation.AutomationBridgeOptions>(
+        builder.Configuration.GetSection("AutomationBridge"));
+
     // ─── Camadas DDD ────────────────────────────────────────────────────────
     builder.Services
         .AdicionarInfraestrutura()
@@ -126,9 +129,11 @@ try
 
     // ─── Fase 2: Serviços ───────────────────────────────────────────────────
     builder.Services.AddSingleton<Financial.Robot.Worker.Config.ConfigValidator>();
+    builder.Services.AddSingleton<Financial.Robot.Worker.Automation.ConfigApplyService>();
     // ConfigWatcherService precisa ser Singleton para que a Factory possa se inscrever no evento ConfigChanged
     builder.Services.AddSingleton<Financial.Robot.Worker.Config.ConfigWatcherService>();
     builder.Services.AddHostedService(sp => sp.GetRequiredService<Financial.Robot.Worker.Config.ConfigWatcherService>());
+    builder.Services.AddHostedService<Financial.Robot.Worker.Automation.AutomationSignalRClientService>();
     builder.Services.AddSingleton<Financial.Robot.Application.Interfaces.IMarketDataService, Financial.Robot.Worker.MarketData.MarketDataService>();
     builder.Services.AddHostedService(sp => (Financial.Robot.Worker.MarketData.MarketDataService)sp.GetRequiredService<Financial.Robot.Application.Interfaces.IMarketDataService>());
 
