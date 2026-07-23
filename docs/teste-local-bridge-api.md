@@ -110,13 +110,13 @@ Configure o Worker, em ambiente de teste/simulação:
 ```json
 "AutomationBridge": {
   "Enabled": true,
-  "HubUrl": "http://127.0.0.1:5088/hubs/earobot",
+  "HubUrl": "http://43.157.160.72:5088/hubs/earobot",
   "DeviceToken": "",
   "ConfigRootPath": "."
 }
 ```
 
-Nesta branch, o `src/Financial.Robot.Worker/appsettings.json` já vem configurado assim para teste local. Execute o Worker a partir da raiz do repositório para que `ConfigRootPath: "."` aponte para a pasta que contém `config/`:
+Nesta branch, o `src/Financial.Robot.Worker/appsettings.json` já vem configurado para conectar na Bridge.Api publicada na VPS `43.157.160.72`. Execute o Worker a partir da raiz do repositório para que `ConfigRootPath: "."` aponte para a pasta que contém `config/`:
 
 ```bash
 cd /root/earobot
