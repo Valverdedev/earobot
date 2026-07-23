@@ -286,14 +286,50 @@ Mesmo com `operar: true` e `applyMode: automatic`:
 - permitir rollback;
 - preservar travas existentes (`RiskGuard`, drawdown, horário, max operações, spread).
 
-## Próximos passos fora deste repo
+## Estrutura de teste incluída nesta branch
 
-A Bridge.Api ainda precisa ser criada na VPS com:
+A Bridge.Api de teste agora está incluída no repo em:
+
+```text
+src/Financial.Robot.Bridge.Api/
+tests/Financial.Robot.Bridge.Api.Tests/
+```
+
+Ela entrega:
 
 - ASP.NET Core Web API;
 - SignalR Hub `/hubs/earobot`;
-- cliente HTTP para Hermes API Server;
-- validação JSON Schema;
-- banco SQLite/PostgreSQL para auditoria;
-- autenticação por device token;
-- endpoints `/api/extractions` e `/api/chat`.
+- `GET /health`;
+- `POST /api/extractions`;
+- `POST /api/hermes/strategies`;
+- `POST /api/test/config-apply`;
+- `GET /api/extractions/{id}`;
+- `GET /api/messages/{id}`;
+- `GET /api/acks/{id}`;
+- Hermes fake habilitado por padrão para teste local;
+- cliente HTTP opcional para Hermes API Server real via `/v1/responses`;
+- autenticação opcional por `X-Device-Token` ou `Authorization: Bearer`.
+
+Roteiro completo de teste local:
+
+```text
+docs/teste-local-bridge-api.md
+```
+
+Payloads de exemplo:
+
+```text
+docs/samples/market-extraction.price-above.json
+docs/samples/config-apply.local-test.json
+```
+
+## Próximos passos fora deste repo
+
+Para produção, a Bridge.Api ainda deve receber:
+
+- persistência durável SQLite/PostgreSQL em vez de armazenamento em memória;
+- autenticação e autorização robustas por dispositivo;
+- observabilidade/auditoria estruturada;
+- fila/retry/idempotência distribuída;
+- dashboard de status e histórico;
+- hardening de deploy HTTPS/firewall na VPS.

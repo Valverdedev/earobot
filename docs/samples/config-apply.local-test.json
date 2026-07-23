@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "messageId": "msg-local-config-apply-001",
+  "correlationId": "ext-local-price-above-001",
+  "type": "config.apply",
+  "target": {
+    "terminalId": "mt5-principal",
+    "symbol": "WINQ26",
+    "brokerSymbol": "WINQ26",
+    "environment": "simulation",
+    "timeframes": ["M1", "M5"]
+  },
+  "files": [
+    {
+      "path": "config/WINQ26.config.json",
+      "operation": "merge",
+      "content": {
+        "operar": true,
+        "automation": {
+          "lastManualTest": true
+        }
+      }
+    }
+  ],
+  "applyMode": "automatic",
+  "rollback": {
+    "enabled": true,
+    "backupId": "auto"
+  }
+}
