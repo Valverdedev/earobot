@@ -102,9 +102,19 @@ Configure o Worker, em ambiente de teste/simulação:
   "Enabled": true,
   "HubUrl": "http://127.0.0.1:5088/hubs/earobot",
   "DeviceToken": "",
-  "ConfigRootPath": "/caminho/para/raiz/do/earobot"
+  "ConfigRootPath": "."
 }
 ```
+
+Nesta branch, o `src/Financial.Robot.Worker/appsettings.json` já vem configurado assim para teste local. Execute o Worker a partir da raiz do repositório para que `ConfigRootPath: "."` aponte para a pasta que contém `config/`:
+
+```bash
+cd /root/earobot
+dotnet run --project src/Financial.Robot.Worker/Financial.Robot.Worker.csproj \
+  --configuration Release
+```
+
+Se for executar de outro diretório, sobrescreva `AutomationBridge__ConfigRootPath` com o caminho absoluto da raiz do repo.
 
 Ao receber `ConfigUpdateRequested`, o Worker:
 
