@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0",
+  "extractionId": "ext-local-price-above-001",
+  "source": "financial.robot.local-test",
+  "createdAtUtc": "2026-07-23T00:00:00Z",
+  "trigger": {
+    "type": "price_above",
+    "price": 129100,
+    "threshold": 129000
+  },
+  "target": {
+    "terminalId": "mt5-principal",
+    "symbol": "WINQ26",
+    "brokerSymbol": "WINQ26",
+    "environment": "simulation",
+    "timeframes": ["M1", "M5"]
+  },
+  "marketContext": {
+    "price": 129100,
+    "trend": "alta",
+    "volatility": "media"
+  },
+  "raw": {
+    "candles": [],
+    "indicators": {},
+    "positions": [],
+    "orders": []
+  }
+}

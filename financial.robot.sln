@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+#
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financial.Robot.Domain", "src\Financial.Robot.Domain\Financial.Robot.Domain.csproj", "{DD831DAB-0D5D-4DD4-98D7-46204F9D5236}"
@@ -19,6 +20,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financial.Robot.Extractor", "src\Financial.Robot.Extractor\Financial.Robot.Extractor.csproj", "{8A2AFFEC-0A0E-4E1D-8CF5-2C0F7EE61663}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financial.Robot.Worker.Tests", "tests\Financial.Robot.Worker.Tests\Financial.Robot.Worker.Tests.csproj", "{4DE28FF3-F05E-4BB2-8645-F9BD579CA5CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financial.Robot.Bridge.Api", "src\Financial.Robot.Bridge.Api\Financial.Robot.Bridge.Api.csproj", "{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Financial.Robot.Bridge.Api.Tests", "tests\Financial.Robot.Bridge.Api.Tests\Financial.Robot.Bridge.Api.Tests.csproj", "{32E5BE31-E755-4430-A6AB-933A5B9BF72F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -126,6 +131,30 @@ Global
 		{4DE28FF3-F05E-4BB2-8645-F9BD579CA5CA}.Release|x64.Build.0 = Release|Any CPU
 		{4DE28FF3-F05E-4BB2-8645-F9BD579CA5CA}.Release|x86.ActiveCfg = Release|Any CPU
 		{4DE28FF3-F05E-4BB2-8645-F9BD579CA5CA}.Release|x86.Build.0 = Release|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Debug|x86.Build.0 = Debug|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Release|x64.Build.0 = Release|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Release|x86.ActiveCfg = Release|Any CPU
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C}.Release|x86.Build.0 = Release|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Debug|x64.Build.0 = Debug|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Debug|x86.Build.0 = Debug|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Release|x64.ActiveCfg = Release|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Release|x64.Build.0 = Release|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Release|x86.ActiveCfg = Release|Any CPU
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,5 +168,7 @@ Global
 		{8571D9E5-A989-4074-9900-7DC6828D3E9E} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 		{8A2AFFEC-0A0E-4E1D-8CF5-2C0F7EE61663} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{4DE28FF3-F05E-4BB2-8645-F9BD579CA5CA} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{6C78EFB9-DEF8-4EDC-BCED-A201E564476C} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{32E5BE31-E755-4430-A6AB-933A5B9BF72F} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
