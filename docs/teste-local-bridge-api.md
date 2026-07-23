@@ -31,10 +31,20 @@ Por padrão a Bridge usa Hermes fake, suficiente para teste ponta-a-ponta local:
 
 ```bash
 cd /root/earobot
-ASPNETCORE_URLS=http://127.0.0.1:5088 \
-  dotnet run --project src/Financial.Robot.Bridge.Api/Financial.Robot.Bridge.Api.csproj \
+dotnet run --project src/Financial.Robot.Bridge.Api/Financial.Robot.Bridge.Api.csproj \
   --configuration Release
 ```
+
+O projeto já inclui `Properties/launchSettings.json` com `applicationUrl` em `http://127.0.0.1:5088`. Se quiser forçar pela linha de comando, use:
+
+```bash
+cd /root/earobot
+ASPNETCORE_URLS=http://127.0.0.1:5088 \
+  dotnet run --project src/Financial.Robot.Bridge.Api/Financial.Robot.Bridge.Api.csproj \
+  --configuration Release --no-launch-profile
+```
+
+> Se o Worker mostrar `Nenhuma conexão pôde ser feita porque a máquina de destino as recusou ativamente. (127.0.0.1:5088)`, significa que ele tentou conectar no hub antes da Bridge.Api estar escutando nessa porta. Suba primeiro a Bridge.Api, confirme o `/health`, e só depois suba o Worker. O cliente SignalR tenta reconectar, mas para o teste limpo a ordem correta evita esse erro no console.
 
 Health check:
 
@@ -100,13 +110,13 @@ Configure o Worker, em ambiente de teste/simulação:
 ```json
 "AutomationBridge": {
   "Enabled": true,
-  "HubUrl": "http://127.0.0.1:5088/hubs/earobot",
+  "HubUrl": "http://43.157.160.72:5088/hubs/earobot",
   "DeviceToken": "",
   "ConfigRootPath": "."
 }
 ```
 
-Nesta branch, o `src/Financial.Robot.Worker/appsettings.json` já vem configurado assim para teste local. Execute o Worker a partir da raiz do repositório para que `ConfigRootPath: "."` aponte para a pasta que contém `config/`:
+Nesta branch, o `src/Financial.Robot.Worker/appsettings.json` já vem configurado para conectar na Bridge.Api publicada na VPS `43.157.160.72`. Execute o Worker a partir da raiz do repositório para que `ConfigRootPath: "."` aponte para a pasta que contém `config/`:
 
 ```bash
 cd /root/earobot
